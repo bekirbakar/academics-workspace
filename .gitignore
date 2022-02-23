@@ -13,6 +13,19 @@
 **/archive.zip
 **/main.pdf
 
+# Master Thesis
+
+Master Thesis/Documents/Turnitin Digital Receipt.pdf
+Master Thesis/Documents/Turnitin Plagiarism Check.pdf
+
+Master Thesis/Drawing/Drawing Projects/**
+
+Master Thesis/Literature/**
+
+Master Thesis/Dissertation Proposal.docx
+Master Thesis/Dissertation Proposal.pdf
+Master Thesis/Thesis.docx
+
 # SIU 2018
 
 SIU 2018/Documents/Acceptance Letter Mail.pdf
@@ -24,6 +37,7 @@ SIU 2018/Documents/Replay Spoofing Attack Detection Using Deep Neural Networks -
 SIU 2018/Documents/Replay Spoofing Attack Detection Using Deep Neural Networks - Initial.pdf
 SIU 2018/Documents/Review Result Capture.png
 SIU 2018/Documents/Unused Parts.md
+
 SIU 2018/Presentation/Resources/**
 
 # SIU 2020
@@ -34,6 +48,7 @@ SIU 2020/Documents/Notes.md
 SIU 2020/Documents/Turkish Rule-Based Official Document Type Detection - IEEE.pdf
 SIU 2020/Documents/Unpublished Sections.md
 SIU 2020/Documents/Zoom.pdf
+
 SIU 2020/Presentation/Turkish Rule-Based Official Document Type Detection - Presentation Video.mp4
 
 # SLT 2018
@@ -45,6 +60,7 @@ SLT 2018/Documents/Paper Submission Confirmation Mail - Short Version.pdf
 SLT 2018/Documents/Paper Submission Confirmation Mail.pdf
 SLT 2018/Documents/Review Results Mail.pdf
 SLT 2018/Documents/Unpublished Sections.md
+
 SLT 2018/Presentation/Resources/**
 
 # TUBITAK 2022
