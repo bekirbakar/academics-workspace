@@ -4,6 +4,10 @@ This repository contains latex sources files, bibliographies, presentations, and
 
 Files in the _.gitignore_ are available upon request.
 
+## Master Thesis
+
+[See Details](https://bit.ly/3v94Ota)
+
 ## SIU 2018 - Replay Spoofing Attack Detection Using Deep Neural Networks
 
 IEEE Page: <https://ieeexplore.ieee.org/abstract/document/8404584>
