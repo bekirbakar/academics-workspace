@@ -1,25 +1,44 @@
 # Publications
 
-This repository contains latex sources files, bibliographies, presentations, and resources for my publications.
-
+This repository contains resources of my publications.
 Files in the _.gitignore_ are available upon request.
+
+## Journal 2022
+
+Publication Title: Deep Learning-Aided Automated Personal Data Discovery and Profiling
+
+Publication Date: January 2022
+
+[Click to See More On TUBITAK Journals Page](https://journals.tubitak.gov.tr/elektrik/abstract.htm?id=30487)
 
 ## Master Thesis
 
-[See Details](https://bit.ly/3v94Ota)
+Publication Title: Deep Learning-Aided Automated Personal Data Discovery and Profiling
 
-## SIU 2018 - Replay Spoofing Attack Detection Using Deep Neural Networks
+Publication Date: December 2022
 
-IEEE Page: <https://ieeexplore.ieee.org/abstract/document/8404584>
+[Click to See on YOK Thesis Center](https://bit.ly/3v94Ota)
 
-## SIU 2020 - Turkish Rule-Based Official Document Type Detection
+## SIU 2018
 
-IEEE Page: <https://ieeexplore.ieee.org/document/9302159>
+Publication Title: Replay Spoofing Attack Detection Using Deep Neural Networks
 
-## SLT 2018 - An Experimental Study on Audio Replay Attack Detection Using Deep Neural Networks
+Publication Date: May 2018
 
-IEEE Page: <https://ieeexplore.ieee.org/document/8639511>
+[Click to See on IEEE](https://ieeexplore.ieee.org/abstract/document/8404584)
 
-## TUBITAK 2022 - Deep Learning-Aided Automated Personal Data Discovery and Profiling
+## SIU 2020
 
-TUBITAK Page: <https://journals.tubitak.gov.tr/elektrik/abstract.htm?id=30487>
+Publication Title: Turkish Rule-Based Official Document Type Detection
+
+Publication Date: October 2020
+
+[Click to See on IEEE](https://ieeexplore.ieee.org/document/9302159)
+
+## SLT 2018
+
+Publication Title: An Experimental Study on Audio Replay Attack Detection Using Deep Neural Networks
+
+Publication Date: December 2018
+
+[Click to See on IEEE](https://ieeexplore.ieee.org/document/8639511)
