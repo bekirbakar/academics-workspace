@@ -1,0 +1,420 @@
+\documentclass[conference, a4paper]{IEEEtran}
+
+\IEEEoverridecommandlockouts
+
+\usepackage[turkish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{cite}
+\usepackage[ruled,vlined]{algorithm2e}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{url}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage[tight,footnotesize]{subfigure}
+\usepackage[lofdepth,lotdepth]{subfig}
+\usepackage{multicol}
+\usepackage{subfigure}
+
+\SetAlgorithmName{Algoritma}{}{}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\ifCLASSINFOpdf
+  \usepackage[pdftex]{graphicx}
+\else
+\fi
+
+\usepackage{svg}
+
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+\setlength{\textfloatsep}{5pt}
+
+\AtBeginDocument{\renewcommand\tablename{TABLO}}
+
+\AtBeginDocument{\renewcommand\abstractname{Abstract}}
+
+\SetKwInput{KwInput}{Girdi}                
+\SetKwInput{KwOutput}{Çıktı}   
+\SetKwIF{If}{ElseIf}{Else}{If}{}{else if}{}{end if}
+
+\begin{document}
+
+\IEEEpubid{\makebox[\columnwidth]{978-1-7281-7206-4/20/\$31.00 ©2020 IEEE\hfill}
+    \hspace{\columnsep}\makebox[\columnwidth]{}}
+
+\title{Türkçe Kural Tabanlı Resmi Doküman Tipi Tespiti\\Turkish Rule-Based Official Document Type Detection}
+
+\author{\IEEEauthorblockN{Bekir BAKAR\IEEEauthorrefmark{1},
+        Filiz AKSOY\IEEEauthorrefmark{2}, Apdullah YAYIK\IEEEauthorrefmark{3},\\
+        Sevcan İÇÖZ\IEEEauthorrefmark{4} ve Vedat AYBAR\IEEEauthorrefmark{5}}
+    \IEEEauthorblockA{Mobildev\\
+        İstanbul, Türkiye\\
+        \{bekir.bakar\IEEEauthorrefmark{1},
+        filiz.aksoy\IEEEauthorrefmark{2},
+        apdullah.yayik\IEEEauthorrefmark{3},
+        sevcan.icoz\IEEEauthorrefmark{4},
+        vedat.aybar\IEEEauthorrefmark{5}\}@mobildev.com}
+
+    \and
+    \IEEEauthorblockN{Tunga GÜNGÖR}
+    \IEEEauthorblockA{Bilgisayar  Mühendisliği Bölümü
+        \\Boğaziçi Üniversitesi
+        \\İstanbul, Türkiye
+        \\gungort@boun.edu.tr
+    }
+}
+
+\maketitle
+
+\begin{ozet}
+    Bu çalışma, kurumların 2016 yılında Türkiye’de yürürlüğe giren 6698 sayılı Kişisel Verilerin Korunması Kanununa
+    (KVKK) uyum sağlamalarına yardımcı olmak amacıyla, resmi dokümanlardaki kişisel bilgileri ve aralarındaki
+    ilişkileri tespit etmek için geliştirilen DATAMIN isimli ürünün ilk aşamasını kapsamaktadır. Dokümanlarda bulunan
+    alan isimlerinin ayırt edici etki değerleri belirlenerek, esnek olarak tasarlanmış düzenli ifadeler ve en az
+    düzeltme mesafesi ile eşleşme kontrolüne dayalı, kural tabanlı resmi doküman tipi tespitine yönelik metot
+    geliştirilmiştir. Önerilen metodun kaliteli optik karakter tanıma işleminin mümkün olduğu durumlarda son derece
+    etkili olduğu ve doğru modelleme yapabildiği tespit edilmiştir.
+\end{ozet}
+
+\begin{IEEEanahtar}
+    KVKK, DATAMIN, doküman tipi tespiti, düzenli ifadeler, en az düzeltme mesafesi.
+\end{IEEEanahtar}
+
+\begin{abstract}
+    This study is the first stage of industrial application that will be used in the product named DATAMIN, which is
+    being developed to help companies adapt Personal Data Protection Law (DPL) No. 6698 came into force in 2016 in
+    Turkey, by extracting and relationing personal information in official documents. Rule-based official document type
+    detection method based on matching control with flexible regular expressions and minimum edit distance was
+    developed by determining the distinctive effect values of the field names in the documents. It was found that
+    proposed method was highly effective and able to make accurate modeling when optical character recognition with
+    high-quality was avaliable.
+\end{abstract}
+
+\begin{IEEEkeywords}
+    DPL, DATAMIN, document type detection, regular expressions, minimum edit distance.
+\end{IEEEkeywords}
+
+\IEEEpeerreviewmaketitle
+
+\IEEEpubidadjcol
+
+\section{G{\footnotesize İ}r{\footnotesize İ}ş}
+\label{sect:giris}
+Kurum ve kuruluşlar çeşitli işlemleri yerine getirebilmek için, temas kurdukları şahıslara ait kişisel verileri kayıt
+altına almakta ve işlemektedir. Bu süreçler, başta özel hayatın gizliliği olmak üzere kişilerin temel hak ve
+özgürlüklerini korumak için kişisel verileri işleyen gerçek ve tüzel kişilerin yükümlülüklerini belirlemek amacıyla
+Avrupa Birliği ülkelerinde Genel Veri Koruma Kanunu $-$General Data Protection Regulation, GDPR
+\cite{otto2018regulation}, Türkiye Cumhuriyetinde ise 6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK) ile
+\cite{turkiye2016title} düzenlenmiştir. Bahsi geçen kanunların getirdiği hukuki ve ekonomik yaptırımlar, kurum ve
+kuruluşları kişisel bilgileri düzenleme ve kontrol altına almak için çözüm arayışına yöneltmiştir. Bu çalışmanın amacı,
+doğal dil işleme yöntemleri ile KVKK kapsamında kişisel veri barındıran resmi dokümanların sınıflandırılmasıdır.
+Kişisel veri içeren doküman tipinin belirlenmesi için kural tabanlı olarak geliştirilen sistem, her bir doküman tipine
+özgün öznitelikler esas alınarak tasarlanmış düzenli ifadeler ve en az düzeltme mesafesi ile içerik tabanlı eşleşme
+kontrolüne dayanmaktadır. İçerik tabanlı sınıflandırılması amaçlanan dokümanların çoğunluğu e-devlet üzerinden temin
+edilebilen ve kişisel bilgi içeren 11 adet doküman tipidir. Bu dokümanlar aşağıda belirtilmiştir.
+
+\begin{itemize}
+    \setlength{\itemsep}{0.5pt}
+    \item\label{idendity}Eski / Yeni Kimlik Belgesi (D-1 / D-2)
+    \item\label{driver_license} Eski / Yeni Sürücü Belgesi (D-3 / D-4)
+    \item Adli Sicil Belgesi (D-5)
+    \item Öğrenci Belgesi (D-6)
+    \item Nüfus Kayıt Belgesi (D-7)
+    \item Araç Ruhsatı (D-8)
+    \item Mezun Belgesi (D-9)
+    \item Yerleşim Yeri ve Adres Bilgileri Belgesi (D-10)
+    \item Askerlik Durum Belgesi (D-11)
+\end{itemize}
+burada D, doküman numarasını temsil etmektedir.
+
+Bölüm \ref{sec:gecmis}'de mevcut yöntemler ve endüstriyel çözümler ele alınmıştır. Bölüm \ref{sec:materyal}'de
+kullanılan metotlar ve karar verme süreci, Bölüm \ref{sec:result}'de ise deneysel sonuçlar ve değerlendirmeler
+bulunmaktadır.
+
+\section{Geçm{\footnotesize İ}ş Çalışmalar}
+\label{sec:gecmis}
+Geçmiş yıllarda birçok doküman sınıflandırma yöntemi önerilmiştir. Bunlardan en çok karşılaşılan resim türündeki
+dokümanların yapısal yerleşim benzerliğini kullanan çalışmalardır. Bu yöntem kullanılarak sayısal resim makina
+öğrenmesi tabanlı yaklaşımlar ile sınıflandırılmaktadır \cite{trstenjak2014knn, jones2004idf, csahin2017turkish}.
+Ayrıca resim türündeki dokümanlar için optik karakter tanımaya (OKT) bağımlı olan içerik metni tabanlı benzerlik
+kullanımına dayalı çalışmalar da mevcuttur. Bu yöntemde ise terim frekansı$-$ters doküman frekansı (TF$-$TDF) metodu
+ile kural tabanlı \cite{han2000centroid} yaklaşımlar kullanılmaktadır. Ayrıca makina öğrenmesi yöntemlerinden k-en
+yakın komşuluk \cite{trstenjak2014knn}, destek vektör makinaları \cite{csahin2017turkish}, na\"ive bayes
+\cite{yoo2015classification} ile de sınıflandırmalar yapılmaktadır. Han ve arkadaşları \cite{han2000centroid}
+tarafından önerilen metot, verilen bir dokümanın her bir kelimesinin TF$-$TDF değeri ile oluşturulan ve o dokümanı
+temsil eden  doküman vektorünün daha önceden belirlenen doküman tipleri için oluşturulmuş olan doküman vektörleri ile
+olan kosinüs benzerliği bilgisine dayalıdır. Bu kural tabanlı çalışmanın deneysel sonuçlarına bakıldığında makina
+öğrenmesi yaklaşımlarından daha üstün olduğu görülmektedir. Reklam, mektup, özgeçmiş gibi 16 adet sınıfa ait toplam
+$400.000$ adet resim içeren RVFL-CDIP \cite{harley2015evaluation} veri seti ile 2017 yılında Chris ve arkadaşları
+\cite{kang2014convolutional} evrişimli yapay sinir ağı modeli ile başarılı sınıflandırma gerçekleştirmişlerdir. Türkçe
+kişisel bilgi içerikli resmi doküman sınıflandırma problemi için mevcut benzer bir veri setinin bulunmadığı, bu sebeple
+benzer çalışmaların yapılamadığı gözlemlenmiştir. Endüstride karşılaşılan IBM firmasının Stored IQSuite, Amazon
+firmasının Macie, Sipiron firmasının ve Titus firmasının Illuminate ürünlerinin, Türkçe resmi doküman sınıflandırmaya
+çözüm getirmediği görülmüştür.
+
+\section{Materyal ve Metotlar}
+\label{sec:materyal}
+Kamera veya tarayıcı aracılığıyla digital ortama aktarılan dokümanlarda genişleme, doğrusal normalizasyon ve Otsu
+adaptif eşikleme \cite{otsu1979threshold} metotları ile iyileştirmeler yapılmıştır. Ardından
+tesseract\footnote{https://github.com/tesseract-ocr/tesseract} OKT kütüphanesi ile bilgi çıkarımı yapılmıştır.
+İlerleyen alt bölümlerde kullanılan metotlar, etki faktörü tanımlaması ve karar verme süreçleri anlatılmıştır.
+
+\subsection{Düzenli İfadeler ve En Az Düzeltme Mesafesi}
+Düzenli ifadeler esas olarak karakter dizisi tespiti için cebirsel gösterimlerden oluşmaktadır. Büyük veri ambarında
+örüntüsü belirli olan kelime yapıları tespiti ve geri dönüşümü için kullanılmaktadır \cite{jurafsky2000speech}. En az
+düzeltme mesafesi ise iki farklı kelimenin biribirlerine dönüştürülebilmesi için ihtiyaç duyulan en az düzeltme işlemi
+(ekleme, silme ve değiştirme gibi) sayısı olarak tanımlanır \cite{levenshtein1966binary}.
+
+\subsection{Etki Değeri Tanımlaması}
+Her bir doküman için Şekil \ref{fig:alanisimleri}'de örnek olarak gösterilen alan isimleri öznitelik olarak
+kullanılmıştır. Her alan isminin her doküman tipi için karar verme işlemini etkileyen farklı bir belirleyici etki
+değeri vardır. Eğer "memleket" alan ismi sadece bir adet dokümanda mevcut ise etki değeri, birden fazla dokümanda
+mevcut olan "soyadı" alan isminin etki değerinden yüksek olmalıdır. Ayrıca, bu değer toplam 10 adet alan ismi bulunan
+mezuniyet belgesi için 8 adet alan ismi bulunan kimlik belgesinden daha düşük olmalıdır. Alan isimlerinin etki
+değerinin ne seviyede olduğu ancak ilgili uzayının bir arada değerlendirilmesi ile belirlenebilir. Bu durumda aynı alan
+isimlerinin farklı doküman türlerinde mevcut olabilme durumu (TDF) ve dokümanların toplam alan sayılarının göz önünde
+bulundurulması gereklidir.
+
+\begin{figure}
+    \centering
+    \shorthandoff{=}
+    % \subfigure[]{\includesvg[scale=0.55]{Images/01.svg}} \shorthandon{=}}
+    \subfigure[]{\includegraphics[width=5.5cm, height=3.6cm]{./Images/01.png}} % width=2, scale=0.39
+    \par\medskip
+    % \subfigure[]{\includesvg[scale=0.25]{./Images/02.svg} \shorthandon{=}}
+    \subfigure[]{\includegraphics[width=3.2cm, height=1.9cm]{./Images/02.png}}
+    \caption{Alan isimleri yeşil dörtgen ile gösterilen 2  adet örnek doküman; (a) mezuniyet belgesi, (b) TC kimlik
+        kartı}
+    \label{fig:alanisimleri}
+\end{figure}
+
+\begin{algorithm}
+    \caption{Ters Frekans Değerleri Tespiti}
+    \label{alg:tersfrekans}
+    \SetAlgoLined
+    \KwInput{$\mathbf{A} = [a_1, a_2, \dots, a_{n}], \mathbf{D} = [d_1, d_2, \dots, d_{m}]$}
+    \KwOutput{$\mathbf{F} = [f_1, f_2, \dots, f_{n}]_{ilk\_atama=0}$}
+    \For{each $a_i$}{
+        \For{each $d_j$}{
+            \eIf{$a_i$ in $d_{j}$}{
+                $f_i \leftarrow f_i + 1$
+            }{}
+        }
+    }
+\end{algorithm}
+
+Belirtilen gereklilikler ve kısıtlar değerlendirilerek, tüm uzayda bulunan eşsiz alan isimlerine ters frekans değeri
+ataması Algoritma \ref{alg:tersfrekans}'de gösterildiği gibi yapılmıştır. Burada, $\mathbf{A}$ benzersiz alan
+isimlerini, $\mathbf{D}$ doküman tiplerine ait alan isimlerini ve  $\mathbf{F}$ ise benzersiz alan isimlerine ait ters
+frekans değerlerini temsil etmektedir. $\mathbf{D}$'nin her elemanı bir adet doküman tipine ait alan isimlerini içeren
+dizidir. Örneğin Şekil \ref{fig:alanisimleri}-b'deki TC kimlik kartı doküman tipi $d_1$ dizisi ile temsil edilmektedir.
+Bu dizinin ilk $3$ elemanı ise şöyledir: $d_{11}$ = TC Kimlik No/Identity No, $d_{12}$ = Soyadı/Surname, $d_{13}$ =
+Ad/Given Name. Sadece Şekil \ref{fig:alanisimleri}'de bulunan $2$ adet doküman tipi birlikte değerlendirildiğinde ters
+frekans değeri "TC Kimlik No" alan ismi için $2$, "Diploma No" ve "Geçerlilik Tarihi" alan isimleri için ise $1$
+olmaktadır.
+
+Algoritma \ref{alg:tersfrekans}'de belirlenen her alana ait $\mathbf{F}$ ters frekans değerleri kullanılarak Algoritma
+\ref{alg:etkidegeri}'de herbir doküman tipinde bulunan alan isimlerinin etki değerleri ($\mathbf{E}$) hesaplanmıştır;
+
+\begin{equation}
+    e_i = \frac{uzunluk(\mathbf{D})}{\mathbf{F}(d_{ij}) \times uzunluk(\mathbf{d_i})}
+\end{equation}{}
+
+\noindent burada $uzunluk(\mathbf{D})$ doküman tipi sayısını, $\mathbf{F}[d_{ij}]$ ters frekans değerini ve
+$uzunluk(d_i)$ değeri doküman tipinin alan ismi sayısını belirtmektedir. Klasik TF$-$TDF de bulunan logaritma
+işleminin kullanılmamasının sebebi etki değerlerinin $0$ veya negatif olmasını engellemektir.
+Şekil \ref{fig:alanisimleri}-b'deki TC kimlik kartı dokümanına ait tüm alan isimlerinin ağırlıkları $e_1$ dizisi ile
+temsil edilmektedir. Sadece Şekil \ref{fig:alanisimleri}'deki doküman tipleri bir arada değerlendirildiğinde Algoritma
+\ref{alg:tersfrekans} ve \ref{alg:etkidegeri} kullanılarak elde edilen örnek etki alanları Tablo \ref{tablo:etki}'de
+gösterilmiştir.
+
+\begin{algorithm}
+    \SetAlgoLined
+    \KwInput{$\mathbf{D} = [d_1, d_2, \dots, d_m], \mathbf{F} = [f_1 , f_2, \dots, f_n]$}
+    \KwOutput{$\mathbf{E}$}
+    \For{each $d_i$}{
+        $e_{i} \leftarrow [e_1, e_2, \dots, e_{h=uzunluk(d_i)}]_{ilk\_atama=0}$\\
+        \For{each $d_{ij}$}{
+            $e_{ij} \leftarrow uzunluk(\mathbf{D}) / ( \mathbf{F}[d_{ij}] \times uzunluk(d_i) )$\\
+        }
+    }
+    \caption{Belirleyici Etki Değeri Tespiti}
+    \label{alg:etkidegeri}
+\end{algorithm}
+
+
+\begin{table}
+    \small
+    \centering
+    \caption{Örnek Etki Değerleri}
+    \begin{tabular}{@{}cclcc@{}}
+        \toprule
+        \multicolumn{1}{l}
+        {\begin{tabular}[l]{@{}l@{}}\textbf{Doküman} \\ \textbf{Tipi}\end{tabular}}                   &
+        \multicolumn{1}{l}{\begin{tabular}[c]{@{}l@{}}\textbf{Alan} \\ \textbf{Sayısı}\end{tabular}}  &
+        \begin{tabular}[c]{@{}l@{}}\textbf{Alan} \\ \textbf{Adı}\end{tabular}                         &
+        \multicolumn{1}{l}{\begin{tabular}[c]{@{}l@{}}\textbf{Ters} \\ \textbf{Frekans}\end{tabular}} &
+        \multicolumn{1}{l}{\begin{tabular}[c]{@{}l@{}}\textbf{Etki} \\ \textbf{Değeri}\end{tabular}}
+        \\ \midrule \multirow{2}{*}{D-2} &
+        \multirow{2}{*}{8}                                                                            &
+        {\scriptsize TC Kimlik No}                                                                    & 2 &
+        $\frac{2}{2 \times 8} = 0.125$                                                                      \\ &
+                                                                                                      &
+        {\scriptsize Geçerlillik Tarihi}                                                              &
+        1                                                                                             &
+        $\frac{2}{1 \times 8} = 0.250$
+        \\
+        \multirow{2}{*}{D-10}                                                                         &
+        \multirow{2}{*}{10}                                                                           &
+        {\scriptsize TC Kimlik No}                                                                    & 2 &
+        $\frac{2}{2 \times 10} = 0.100$                                                                     \\ &  &
+        {\scriptsize Diploma No}                                                                      & 1 &
+        $\frac{2}{1 \times 10} = 0.200$                                                                     \\
+        \cmidrule(l){1-5}
+    \end{tabular}
+    \label{tablo:etki}
+\end{table}
+
+\subsection{Benzeşme Oranı Tespiti ve Karar Verme İşlemi}
+Benzeşme oranı belirlenmesinde, alan isimlerinden oluşturulan düzenli ifadelerin en az düzeltme mesafesi kriterlerine
+göre eşleşmesi ve eşleşmemesi durumu göz önünde bulundurulmuştur. Alan isimleri için düzenli ifadeler, OKT esnasında
+meydana gelebilecek Türkçe karakter bozuklukları göz önünde bulundurularak esnek olarak tasarlanmıştır. Örneğin Şekil
+\ref{fig:alanisimleri}-b'de kimlik kartında "Önceki Soyadı" alan ismi bu işlem sonrasına "[OÖ]nceki ?Soyad[ıi]" düzenli
+ifade örüntüsü olmaktadır. Örüntülerin tüm karakterlerinde büyük ve küçük harf olabilmesi sağlanarak eşleşmelerin
+kapsamı artırılmıştır. Ayrıca, oluşturulan her bir düzenli ifade örüntü öncesi ve sonrasında kelime sınırı (boşluk veya
+bir sonraki satıra geçiş) kısıtı eklenerek istenmeyen eşleşmeler önlenmiştir. En az düzeltme mesefesinde maliyetler her
+bir işlem (silme, ekleme ve değiştirme) için $1$ olarak belirlenmiştir.
+
+En az düzeltme mesafesi karakter sayısı az olan alan isimleri için yüksek seviyede belirlenir ise istenmeyen birçok
+eşleşmeyi hatalı olarak yapacağından sistemi yanıltacaktır. Örneğin "soyadı" alan ismi için $3$ olarak belirlenirse
+"sanatı" kelimesi ile hatalı eşleşme meydana gelecektir ($3$ değiştirme). Ayrıca karakter sayısı çok fazla olan alan
+isimleri için çok düşük seviyede belirlenir ise sistemin esnekliği azaltılmış olur ve  gerçek eşleşmeler istenmeden
+ihmal edilmiş olur. Örneğin "Geçerlilik Tarihi" alan ismi için $1$ olarak belirlenirse "Geçerlilih Tariki" kelimeleri
+ile hatalı eşleşmeme meydana gelir. Bu sebeple düzeltme mesafesi deneysel incelemeler neticesinde aşağıdaki gibi
+belirlenmiştir,
+\begin{equation}
+    \label{equation:ED}
+    \mathbf{ED}(a_i) = \begin{cases}
+        0 & \text{$a_i$'nin karakter sayısı} \leq 5      \\
+        1 & 5 < \text{$a_i$'nin karakter sayısı} \leq 15 \\
+        2 & 15 < \text{$a_i$'nin karakter sayısı}
+    \end{cases}
+\end{equation}
+\noindent burada, $\mathbf{ED}$ en az düzeltme mesafesini ifade etmektedir. Düzenli ifade eşleşmesi ile en az düzeltme
+mesafesi aynı sonlu durum otomata içerisinde birlikte çalışarak oldukça esnek ama aşırılıktan uzak bir biçimde doğru
+eşleşme geri dönüşümü yapılabilecek şekilde tasarlanmıştır. Doküman tipi, ilk olarak Algoritma \ref{alg:benzesmeorani}
+ile benzeşme oranı tespiti ve sonrasında karar verme işleminden sonra belirlenmiş olmaktadır. Algoritma
+\ref{alg:benzesmeorani}'de tipi öğrenilmek istenilen dokümanın belirlenen doküman tiplerine ne kadar benzeştiği
+ölçülmektedir. Burada, $\mathbf{Dok}$ tipi belirlenmek istenilen bir dokümanı, $\mathbf{E}$ Algoritma
+\ref{alg:etkidegeri}'de hesaplanan etki değerlerini, $\mathbf{ED}$ en az düzeltme mesafesini ve $\mathbf{B}$ tipi
+belirlenmek istenilen dokümanın benzeşme oranlarını ve $\mathbf{T}$ ise her doküman tipi için tam benzeşme oranlarını
+göstermektedir. $\mathbf{RE}$ fonksiyonu giriş olarak alan isimlerini almakta düzenli ifadeler oluşturmaktadır.
+$\mathbf{ED}$ en az düzeltme mesafesi değeri ise Denklem (\ref{equation:ED})'de belirtildiği gibi atanmıştır.
+$\mathbf{KONTROL}$ fonksiyonu ise giriş olarak düzenli ifade, doküman ve en az düzeltme mesafesini almakta ve eğer
+eşleşme var ise $1$, yok ise $0$ değerini döndürmektedir. Eşleşme olması durumunda benzerlik oranı ($b_i$) ilgili alan
+ismine atanan etki değeri ($e_i$) olmaktır, aksi durumda ise ilk atanan $0$ değeri olmaktadır.
+
+Algoritma \ref{alg:kararverme}'de doküman tipi kararı için tasarlanan işlemler verilmiştir. Burada  $\mathbf{s}$ eşik
+değerini, $\mathbf{k}$ ise dokümana atanan sınıfı belirtmektedir. Öncelikle dokümanın en çok benzediği doküman türü
+belirlenmektedir ($max(\mathbf{B})$). Eğer bu benzeşme değeri bu doküman türüne ait tam benzeşme değerine oranla
+belirli bir sınırı aşıyor ise sınıf ataması yapılmaktadır, aksi durumda harici bir doküman olduğu kararı verilmektedir.
+Bu çalışmada $\mathbf{s}$ eşik değeri deneysel olarak $0.25$ olarak belirlenmiştir. Örneğin TC kimlik kartı için tam
+benzerlik oranı değeri $50$ olduğu durumda, tipi belirlenmek istenilen bir dokümanın benzerlik oranlarının en yüksek
+değeri $12.5$ veya üzerinde ise TC kimlik kartı ataması yapılabilmektedir. Bu şart doküman tipi belirlemede yüksek etki
+değerli alan isimlerinde eşleşme olmasını zorunlu kılarak sistemin karar vermede doğrulunu sağlayan önemli bir
+faktördür.
+
+\begin{algorithm}
+    \caption{Benzeşme Oranı Tespiti}
+    \label{alg:benzesmeorani}
+    \SetAlgoLined
+    \KwInput{$\mathbf{Dok}, \mathbf{ED}, \mathbf{E} = [e_1, e_2, \dots, e_m], \mathbf{D} = [d_1, d_2, \dots, d_m]$}
+
+    \KwOutput{$\mathbf{B}= [b_1, b_2, \dots, b_{n}]_{ilk\_atama=0}, \mathbf{T}= [t_1, t_2,
+                \dots, t_{n}]_{ilk\_atama=0}$}
+    \For{each $d_i$}{
+        \For{each $d_{ij}$}{
+            \If{$ \mathbf{KONTROL}( \mathbf{RE}(d_{ij}), \mathbf{Dok}, \mathbf{ED}) )$}
+            {$b_i \leftarrow b_i + e_{ij}$}{}
+            $t_i \leftarrow t_i + e_{ij}$\\
+        }
+    }
+\end{algorithm}
+
+\SetKwInput{KwInput}{Girdi}
+\SetKwInput{KwOutput}{Çıktı}
+\SetKwIF{If}{ElseIf}{Else}{If}{}{else if}{else}{end if}
+
+
+\begin{algorithm}
+    \caption{Karar Verme}
+    \label{alg:kararverme}
+    \SetAlgoLined
+    \KwInput{$\mathbf{B}, \mathbf{T}, \mathbf{s}$}
+    \KwOutput{$\mathbf{k}$}
+    \eIf{max($\mathbf{B}) \geq \mathbf{s} \times \mathbf{T}({arg\,max}(\mathbf{B}))$}
+    {$\mathbf{k} \leftarrow {arg\,max}(\textbf{B})$}
+    {$\mathbf{k} \leftarrow \text{diğer}$}
+
+\end{algorithm}
+
+\section{Sonuçlar}
+\label{sec:result}
+Bu çalışmada, Türkiye Cumhuriyeti'nde kullanılan resmi dokümanların kural tabanlı sınıflandırılması amaçlanmıştır.
+Literatürde benzer bir yaklaşımın yapılabilmesi için herhangi bir veri setinin mevcut olmadığı görülmüştür. Söz konusu
+dokümanların kişiye özel olmasından dolayı geliştirme ve test esnasında temin edilmesi hukuksal anlamda bir takım
+prosedürlerin yerine getirilmesini gerektirmiştir. Bu sebeple kısıtlı olsa da gerçek veriler ile önerilen metotların
+testi sağlanmıştır. Hazırlanan veri setinde doğrudan dijital ortamda oluşturulan 108 adet doküman ve kamera veya
+tarayıcı aracılığı ile dijital ortama aktarılan 417 adet doküman bulunmaktadır. Bu 2 katagorideki veriler ayrı ayrı
+test edilerek doğrulama matrisleri Şekil \ref{fig:dogrulamamatrisi}'de sunulmuştur.
+
+\begin{figure}[th]
+    \centering
+    \shorthandoff{=}
+    \subfigure{\includegraphics[scale=0.24]{./Images/03.png}}
+    \par\medskip
+    \subfigure{\includegraphics[scale=0.24]{./Images/04.png}}
+    \shorthandon{=}
+    \caption{Doğrulama matrisi (a) doğrudan dijital ortamda oluşturulan dokümanlar, (b) kamera veya tarayıcı
+        aracılığıyla dijital ortama aktarılan dokümalar için. Burada $0$ etiketi harici doküman tipini, diğerleri ise
+        Bölüm \ref{sect:giris}'de D ile belirtilen doküman tipi numaralarını temsil etmektedir.}
+    \label{fig:dogrulamamatrisi}
+\end{figure}
+
+D-5, D-6, D-7, D-9, D-10 ve D-11 tiplerine ait dokümanlara doğrudan dijital ortamda oluşturturulmuş formda
+karşılaşılabildiği için Şekil \ref{fig:dogrulamamatrisi}-a'da 6 adet doküman tipi sınırlandırması yapılmıştır. Test
+sonrasında doküman tiplerinin tamamının doğru tespit edildiği görülmektedir (genel başarım \%100). Şunu özellikle
+belirtmek isteriz ki, bu sonuç veri çıkarımının sorunsuz olarak gerçekleştirilebildiği (OKT bağımlılığı olmadan)
+doküman tiplerinde önerilen metodun doğru karar verebildiğini ve doğru modelleme yeteneğine sahip olduğunu
+göstermektedir.
+
+Doküman tipinin hatalı atanması yerine mevcut doküman tiplerinin haricinde "diğer" doküman tipi şeklinde atama
+yapabilabilmesi beklenmektedir. Örneğin, verilen bir TC kimlik kartı için eğer adli sicil kaydı ataması yapılırsa
+bütüncül sistemin doğru çalışması mümkün olamayacaktır. Bu kısıt ve gereklilikler ışığında Şekil
+\ref{fig:dogrulamamatrisi}-b incelendiğinde öncelikle test kümesinde bulunan $58$ adet harici tipteki dokümanın hatalı
+olarak herhangi bir sınıfa atanmadığı görülmektedir. Ayrıca tipi hatalı olarak tespit edilen dokümanların neredeyse
+hepsine yalnızca harici doküman tipi ataması yapılmıştır. Vurgulamak isteriz ki, bu durum karar verme algoritmasında
+çalışmanın geri kalan bölümlerinde harici dokümanlar için yanıltıcı bir etkinin mevcut olmadığını göstermektedir. Şekil
+\ref{fig:dogrulamamatrisi}-b incelendiğinde genel başarım \%49.16'dır. Ancak, "harici" doküman sınıfına hatalı
+atamalar göz ardı edilirse \%98.55 olduğu gözlemlenmektedir. Kamera veya tarayıcı aracılığıyla dijital ortama aktarılan
+dokümanların çözünürlük ve boyut gibi etkenlerden dolayı doğru okunabilmesi ağırlıklı olarak OKT kalitesine bağımlıdır.
+Bu sebeple, Şekil \ref{fig:dogrulamamatrisi}-b'de doküman tipinin belirlenmesinde hatalar olduğu gözlemlenmiştir.
+
+Çalışmanın devamı olarak başarım artırımı için ekibimiz tarafından evrişimli sinir ağları kullanılarak makina
+öğrenmesi tabanlı bir sistem halihazırda geliştirilmektedir ve nihai durumda mevcut çalışmada önerilen metot ile hibrit
+olarak çalışması planlanmaktadır. Bu çalışma, geliştirilmekte olan DATAMIN isimli KVKK uyum sürecine yardımcı olması
+hedeflenen endüstriyel bir ürünün ilk aşaması olan kural tabanlı resmi dokuman sınıflandırma yaklaşımını içermektedir.
+Yapılan kural tabanlı doküman sınıflandırma sonrasında belirlenen doküman tipine uygun makina öğrenmesi ve sözlük
+tabanlı hibrit metotlar kullanılarak veri çıkarımı ile ilişkilendirmesi planlanmaktadır.
+
+\section*{B{\footnotesize İ}lg{\footnotesize İ}lend{\footnotesize İ}rme}
+Bu çalışma 3190083 numaralı 1051-TÜBİTAK Sanayi Ar-Ge Projeleri Destekleme Programı tarafından desteklenmiştir.
+
+\bibliography{bibliography}
+\bibliographystyle{ieeetr}
+
+\end{document}
