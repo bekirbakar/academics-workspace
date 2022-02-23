@@ -15,3 +15,7 @@ IEEE Page: <https://ieeexplore.ieee.org/document/9302159>
 ## SLT 2018 - An Experimental Study on Audio Replay Attack Detection Using Deep Neural Networks
 
 IEEE Page: <https://ieeexplore.ieee.org/document/8639511>
+
+## TUBITAK 2022 - Deep Learning-Aided Automated Personal Data Discovery and Profiling
+
+TUBITAK Page: <https://journals.tubitak.gov.tr/elektrik/abstract.htm?id=30487>
