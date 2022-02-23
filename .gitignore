@@ -13,6 +13,9 @@
 **/archive.zip
 **/main.pdf
 
+Essay/**
+PhD/**
+
 # Master Thesis
 
 Master Thesis/Documents/Turnitin Digital Receipt.pdf
@@ -24,7 +27,7 @@ Master Thesis/Literature/**
 
 Master Thesis/Dissertation Proposal.docx
 Master Thesis/Dissertation Proposal.pdf
-Master Thesis/Thesis.docx
+Master Thesis/Using Artificial Neural Network on Anti-Spoofing for Speaker Verification.docx
 
 # SIU 2018
 
@@ -62,7 +65,3 @@ SLT 2018/Documents/Review Results Mail.pdf
 SLT 2018/Documents/Unpublished Sections.md
 
 SLT 2018/Presentation/Resources/**
-
-# TUBITAK 2022
-
-TUBITAK 2022/**
