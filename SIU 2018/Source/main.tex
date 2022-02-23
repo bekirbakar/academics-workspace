@@ -1,0 +1,338 @@
+\documentclass[conference, a4paper]{IEEEtran}
+
+\IEEEoverridecommandlockouts
+
+\usepackage{cite}
+\usepackage[cmex10]{amsmath}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage[lofdepth,lotdepth]{subfig}
+\usepackage[turkish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\ifCLASSINFOpdf
+  \usepackage[pdftex]{graphicx}
+\else
+\fi
+
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+\setlength{\textfloatsep}{5pt}
+
+\AtBeginDocument{\renewcommand\tablename{TABLO}}
+\AtBeginDocument{\renewcommand\abstractname{Abstract}}
+
+\begin{document}
+
+\IEEEpubid{\makebox[\columnwidth]{978-1-5386-1501-0/18/\$31.00 \copyright\ 2018 IEEE\hfill}
+    \hspace{\columnsep}\makebox[\columnwidth]{}}
+
+\title{Derin Sinir Ağları ile Tekrar Saldırılarının Tespiti\\
+    Replay Spoofing Attack Detection Using Deep Neural Networks}
+
+\author{\IEEEauthorblockN{Bekir Bakar ve Cemal Hanilçi}
+    \IEEEauthorblockA{Elektrik-Elektronik Mühendisliği Bölümü\\
+        Bursa Teknik Üniversitesi\\
+        Bursa, Türkiye\\
+        b.bakar@outlook.com, cemal.hanilci@btu.edu.tr}}
+
+\maketitle
+
+\begin{ozet}
+    Son yıllarda konuşmacı doğrulama (KD) sistemlerine olan ilgi artmış ve KD sistemlerinin kullanımı yaygınlaşmıştır.
+    Bu durum; yanıltma saldırılarının tespitini, gerçek sesin sahte sesten ayırt edilmesi, KD sistemleri için önemli
+    bir araştırma konusuna dönüştürmüştür. Bu çalışmada KD sistemlerine daha önceden kaydedilmiş bir sesin tekrar
+    oynatılması ile gerçekleştirilebilecek tekrar saldırılarının tespiti problemi ele alınmıştır. Mel frekansı kepstrum
+    katsayıları (MFCC) ve uzun dönem ortalama spektrum (LTAS) istatistikleri özniteliklerinin, derin sinir ağları (DNN)
+    sınıflandırıcısı ile tekrar saldırılarının tesit edilmesi gerçekleştirilmiştir. ASVspoof 2017 veritabanı ile
+    yapılan deneylerde: DNN ile LTAS ve MFCC öznitelikleri sınıflandırıldığında, ASVspoof 2017 yarışmasının referans
+    yöntemi olan sabit Q dönüşümü kepstral katsayılarının (CQCC) GMM sınıflandırıcısı ile modellenmesine göre daha iyi
+    performans gösterdiği tespit edilmiştir.
+\end{ozet}
+
+\begin{IEEEanahtar}
+    konuşmacı doğrulama, yanıltma saldırıları, saldırı tespiti, derin sinir ağları
+\end{IEEEanahtar}
+
+\begin{abstract}
+    In recent years, there has been increased interest in speaker verification (SV) systems and their usage has become
+    widespread. This situation made the detecting of spoofing attacks, the discrimination of genuine speech from
+    spoofed speech, an important research area for speaker verification (SV) systems. In this study, detection of
+    replay spoofing attacks where a pre-recorded speech signal is used to gain unauthorized access to ASV systems is
+    studied. Mel frequency cepstral coefficients (MFCC) and long-term average spectrum (LTAS) statistics features are
+    used to detect replay attacks using deep neural network (DNN) classifier. Experimental results using ASVspoof 2017
+    database show that MFCC and LTAS features with DNN classifier outperforms the Gaussian mixture model (GMM)
+    classifier with constant Q transform cepstral coefficients (CQCC) which is the baseline replay attack detection
+    system of the ASVspoof 2017 challenge.
+\end{abstract}
+
+\begin{IEEEkeywords}
+    speaker verification, spoofing attacks, anti-spoofing, deep neural networks
+\end{IEEEkeywords}
+
+\IEEEpeerreviewmaketitle
+
+\IEEEpubidadjcol
+
+\section{G{\footnotesize İ}r{\footnotesize İ}ş}
+Konuşmacı doğrulama (KD)\cite{kinnunen2010overview}, verilen bir ses sinyalinin iddia edilen kişiye ait
+olup olmadığının tespit edilmesini hedefleyen, kimlik kabul veya reddetme işlemidir. Tıpkı parmak izi tanıma, yüz
+tanıma vb. biyometrik sistemlerde olduğu gibi; KD sistemleri kişisel verilerin güvenliği, çeşitli sistemlere erişim
+kontrolü, banka işlemleri ve daha bir çok alanda kullanılmaktadır \cite{hadid2015biometrics}. Teknolojik gelişmeler ve
+bu alanda yapılan çalışmaların artmasıyla birlikte, sistemlerin kullanım alanı gün geçtikçe artmaktadır.
+
+KD ve diğer biyometrik sistemlerin kullanımının yagınlaşması, sistemlere yapılan yanıltma saldırılarını da beraberinde
+getirmiştir. Yanıltma saldırısı, bir kişinin (saldırganın) erişim izni olmayan bir sisteme erişme girişimidir
+\cite{hadid2015biometrics}. En son geliştirilen KD sistemleri de dahil olmak üzere, sistemlerin yanıltma saldırılarına
+karşı savunmasız olduğu birçok çalışmada açıkca gösterilmiştir \cite{wu2015spoofing}.
+
+Bir KD sistemine yapılması olası saldırı türleri; konuşmacının sesinin sentezlenerek oluşturulması
+\emph{-ses sentezleme-}\cite{de2012evaluation}, çeşitli yazılımlar kulanılarak saldırganın herhangi bir sesi hedef
+kişinin sesine dönüştürmesi \emph{-ses dönüştürme}-\cite{stylianou2009voice}, hedef konuşmacının sesinin taklit
+edilmesi \emph{-taklit-}\cite{hautamaki2015automatic}, hedef konuşmacının önceden kaydedilmiş ses kaydının kullanılması
+\emph{-tekrar oynatma-} \cite{wu2015spoofing} şeklinde alt ketegorilere ayrılabilir. Bu
+saldırı türlerinden taklit saldırısı özel bir yetenek gerektirmesi nedeniyle, karşılaşılması güç bir saldırı türüdür
+ve önemli bir tehdit olarak algılanmamaktadır. Ses sentezleme ve ses dönüştürme saldırıları kolay erişilebilir birçok
+yazılım kullanılarak yapılabileceği ve saldırı başarı oranının yüksek olması nedeniyle önemli bir tehdit olarak
+görülmektedir. Tekrar saldırıları ise; hemen herkesin sahip olduğu basit bir cep telefonu ile yapılabilmesi
+sebebiyetiyle en önemli yanıltma saldırısı türüdür.
+
+Literatürde bulunan bazı tekrar saldırısı tespit çalışmaları şöyle özetlenebilir: Villalba ve Lleida
+\cite{villalba2010speaker}, bilinen başarılı konuşmacı doğrulama tekniklerinden biri olan birleşik etmen
+analizi (joint factor analysis - JFA) ile konuşmacı doğrulama deneylerinde normal durumda 0.71\% eşit hata oranı (EER)
+değeri elde edilirken, önceden kaydedilmiş (tekrar saldırıları) seslerin yanlış sınama sesleri ile yer değiştirilmesi
+neticesinde, sistemin tekrar kayıtlarının \%68'ini kabul ettiğini ortaya koymuştur
+\cite{villalba2010speaker}. Başarılı yöntemlerin tekrar saldırıları karşısında bu ölçüdeki savunmasızlığı,
+yeni bir arayışı beraberinde getirmiştir. Bu, tekrar saldırılarının tespit edilebilmesi problemidir. Bu kapsamda, 2017
+yılında \emph{otomatik konuşmacı doğrulama yanıltma ve saldırı tespiti (Automatic speaker verification spoofing and
+    countermeasures challenge - ASVspoof 2017)} düzenlenmiştir \cite{kinnunen2017asvspoof}. Bu yarışma
+neticesinde yapılan çalışmalardan birinde \cite{li2017study}, farklı öznitelikler ile Gauss Karışım Modeli
+(Gaussian mixture model - GMM), destek vektör makineleri (support vector machines - SVM) ve derin sinir ağları (deep
+neural networks - DNN) sınıflandırıcıları kullanılarak, tekrar saldırılarının tespit edilmesi problemi ele alınmış
+olup; öznitelik çıkarmada yüksek frekans bölgesi analizinin ve DNN sınıflandırıcısının daha iyi sonuç verdiği
+gösterilmiştir.
+Yüksek frekans bölgesi analizinin, tekrar saldırılarının tespitinde performansı iyileştirdiğini gösteren bir diğer
+çalışmada \cite{witkowski2017audio} ise; öznitelikler 6000-8000 Hz frekans aralığından çıkarıldığında \%3.38 EER değeri
+elde edilmiştir. ASVspoof 2017 yarışmasında verilen referans saldırı tespiti yöntemine (GMM sınıflandırıcısı ve sabit
+Q dönüşümü kepstral katsayıları) nazaran daha iyi performansın elde eden bir diğer çalışmada
+\cite{nagarsheth2017replay} ise; derin öğrenme yöntemlerinin karşılaştırılması yapılmıştır. Tüm bu çalışmalar
+göstermektedir ki; tekrar saldırıları KD sistemleri için önemli bir tehdittir ve DNN sınıflandırıcısı ile geliştirilen
+sistemlerin performansı bu çalışmada motivasyon kaynağı olmuştur.
+
+Bu çalışmada iki farklı yöntem kullanılarak, ses sinyalinden öznitelikler çıkarılmıştır. Bu öznitelikler kullanılarak;
+ses sinyalinin gerçek veya sahte sınıfa ait olup olmadıklarının ayırt edilmesi için derin sinir ağları yöntemiyle bir
+model oluşturulmuştur. Daha sonra bu modelden elde edilen olasılıklar, sistem performansını tespit etmek için; ses
+işleme problemlerinde yaygın olarak kullanılan skor hesaplama yöntemine çevrilmiştir. DNN ile tekrar saldırısı tespit
+sonuçları, ASVspoof 2017 organizasyon komitesi tarafından önerilen referans yöntem olan sabit Q transformu kepstrum
+katsayılarının GMM sınıflandırıcısı ile modellenmesi (CQCC-GMM) yöntemi sonuçları ile karşılaştırılmıştır. Çalışmanın
+devamı; tekrar saldırısı tespit yöntemi, tercih edilen öznitelik çıkarma yöntemleri, deneysel çalışmalar, deneysel
+sonuçlar ve tartışma şeklinde devam etmektedir.
+
+\section{Tekrar Saldırılarının Tesp{\footnotesize İ}t{\footnotesizeİ}}
+Konuşmacı tanıma sistemlerine yapılabilecek tekrar saldırılarının tespiti aslında iki sınıflı bir örüntü tanıma
+problemidir. Bu sınıflardan biri \emph{gerçek/orijinal} sınıf iken diğeri ise \emph{sahte} sınıftır. Tekrar
+saldırılarının tespiti ise verilen bir ses sinyalinin orijinal veya daha önceden kaydedilmiş bir ses olup olmadığının
+tespit edilmesi problemidir.
+
+Saldırı tespiti, aslında iki sınıf arasında karar verme işlemi olup, karar için logaritmik olabilirlik oran
+(log-likelihood ratio - $\mathcal{LLR}$) skoru kullanılabilir:
+\begin{equation}
+    \mathcal{LLR}=\log p(\mathbf{X}|C_1)-\log p(\mathbf{X}|C_2)
+\end{equation}
+
+Burada, $C_1$ ve $C_2$ sırası ile \emph{gerçek/orijinal} ve \emph{tekrar/sahte} sınıflarını temsil eden akustik
+modellerdir ve her bir sınıfa ait eğitim öznitelikleri kullanılarak bu modeller eğitilebilir. Bu çalışmada kullanılan
+ASVspoof 2017 veritabanı ile tekrar saldırısı tespiti için organizasyon komitesi tarafından Gauss Karışım Modeli (GMM)
+sınıflandırıcısı referans modelleme yöntemi olarak önerilmiştir.
+
+GMM yönteminde, her bir sınıf (orijinal ve tekrar), $M$ adet çok boyutlu Gauss yoğunluk fonksiyonunun
+ağırlıklandırılmış toplamı şeklinde, $p(\mathbf{x}|\lambda)=\sum_{i=1}^Mw_ip_i(\mathbf{x}$), temsil edilir. Burada
+$p_i(\mathbf{x})$ ortalaması $\mathbf{\mathrm{\mu_i}}$, ortak değişinti matrisi $\mathbf{\Sigma}_i$ olan $D-$boyutlu
+($D$:öznitelik vektörlerinin boyutu) Gauss yoğunluk fonksiyonunu belirtmekte olup bütün bir GMM
+$\lambda=\{w_i,\:\mathrm{\mathbf{\mu}}_i,\:\mathbf{\Sigma}_i\}_{i=1}^M$ şeklinde gösterilir. GMM yönteminin eğitim
+aşamasında, her bir sınıfın eğitim öznitelik vektörleri
+$\mathbf{X}=\{\mathbf{x}_1,\:\mathbf{x}_2,\:\ldots,\:\mathbf{x}_N \}$ eğitim öznitelikleri kullanılarak en büyük
+olabilirlik kriteri kullanılarak beklentinin maksimumlaştırılması algoritması ile GMM parametreleri (ağırlık,
+ortalama ve ortak değişinti) tahmin edilir. Test aşamasında ise; test ses sinyalinden elde edilen öznitelik
+vektörleri, $\mathbf{Y}=\{\mathbf{y}_1,\:\ldots,\:\mathbf{y}_T\}$, kullanılarak logaritmik olabilirlik oranı skoru,
+
+\begin{equation}
+    \mathcal{LLR}=\log p(\mathbf{Y}|\lambda_\mathrm{gercek})-\log p(\mathbf{Y}|\lambda_\mathrm{tekrar})
+\end{equation}
+şeklinde hesaplanır. Burada $\lambda_\mathrm{gercek}$ ve $\lambda_\mathrm{tekrar}$ sırası ile gerçek ve tekrar
+sınıflarına ait GMM'leri belirtmektedir. $p(\mathbf{Y}|\lambda)$ $\mathbf{Y}$ test öznitelik vektörleri için GMM
+olabilirlik değeri olup şu şekilde hesaplanmaktadır:
+\begin{equation}
+    p(\mathbf{Y}|\lambda) = \prod_{t=1}^T \sum_{i=1}^M w_i p_i(\mathbf{y}_i|\lambda).
+\end{equation}
+
+Bu çalışmada, referans sınıflandırıcı yöntem olan Gauss karışım modeli tekniğine ek olarak derin sinir ağları
+(deep neural network - DNN) modelleme yöntemi kullanılmıştır. DNN son yıllarda popüler olarak kullanılan bir yaklaşım
+olup, farklı çalışmalarda hem sınıflandırma hem de öznitelik çıkarma amacı ile kullanılmıştır.
+
+DNN sınıflandırıcısı ile gerçek ve tekrar seslerini birbirinden ayırt etmek için farklı öznitelikler ile ASVspoof 2017
+veri tabanı eğitim kümesini kullanarak bir derin sinir ağı eğitilmiştir. Giriş katmanındaki nöron sayısı, kullanılan
+özniteliklerin boyutu ile aynı olup, gizli katmanlarda farklı sayılarda nöron kullanılmıştır. Çıkış katmanında ise
+biri gerçek, diğeri tekrar/sahte sınıfı temsil eden softmax aktivasyon fonksiyonunun kullanıldığı iki nöron
+kullanılmıştır. Her bir çıkış nöronu, ilgili sınıfın sonsal (posterior) olasılığını temsil ettiğinden, sonsal
+olasılıklar, logaritmik olabilirlik oranı skoruna şu şekilde dönüştürülmüştür:
+
+\begin{equation}
+    \mathcal{LLR}=\log p(C_1|\mathbf{X})-\log p(C_2|\mathbf{X})
+\end{equation}
+
+\section{{\ Ö}zn{\footnotesizeİ}tel{\footnotesizeİ}k {\ Ç}ıkarma}
+DNN yönteminin güçlü yönlerinden biri sınıflandırma için gerekli olan ve ayırt ediciliği yüksek olan öznitelikleri
+kendisinin çıkarması olsa da; ses sinyallerinin kullanıldığı çalışmaların çoğunda ön-işleme adımında çıkarılan
+öznitelikler DNN algoritmasına giriş olarak verilmektedir \cite{nagarsheth2017replay}. Bu çalışmada iki tür öznitelik
+çıkarım yöntemi tercih edilmiştir:
+
+\subsection{Mel-Frekansı Kepstrum Katsayıları}
+Mel-frekansı kepstrum katsayıları (MFCC) \cite{kinnunen2010overview,davis1980comparison}, konuşma analizi
+problemlerinde en yaygın kullanılan öznitelik çıkarma yöntemlerinden biridir. MFCC öznitelikleri, ön vurgulama yapılan
+ses sinyalinin her biri 25 ms uzunluğunda, 10 ms'lik kısımları birbiri ile örtüşen Hamming pencere ile pencerelenmiş
+çerçevelerden elde edilir. Pencerelenmiş çerçevelerin ayrık Fourier dönüşümü (DFT) alınarak genlik spektrumları elde
+edilir ve üçgen süzgeçlerden oluşan süzgeç takımından geçirilir. Logaritmik süzgeç çıkışlarının ayrık kosinüs
+dönüşümünün alınmasıyla MFCC öznitelikeri elde edilir. Burada öznitelik vektörünün ilk katsayısı logaritmik enerjidir.
+Bu yöntem için açık kaynak kodlu dil ve konuşmacı tanıma paketi SIDEKIT \cite{sidekit} kullanılmıştır.
+
+\subsection{Uzun Dönem Ortalama Spektrum İstatistikleri}
+Uzun dönem ortalama spektrum (LTAS) istatistikleri \cite{muckenhirn2016presentation}  özniteliklerini elde etmek için;
+$s$ ses sinyali öncelikle ön-vurgulama süzgecinden geçirilerek birbiri ile örtüşen kısa çerçevelere bölünür. Hamming
+pencere fonksiyonu ile pencerelenen her bir çerçevenin $N$ noktalı ayrık Fourier dönüşümü (AFD) alınarak genlik
+spektrumu hesaplanır. $S_t(k)$, $t=1,2,\:\ldots,T$, t. çerçevenin Fourier dönüşümünü belirtmek üzere
+($k=1,\:\ldots,\:N/2)$ uzun dönem ortalama ve varyans istatistikleri elde edilir:
+
+\begin{equation}
+    \mu(k) = \frac{1}{T}\sum_{t=1}^{T} \log \left|S_t(k)\right|
+\end{equation}
+
+\begin{equation}
+    \sigma^2(k) = \frac{1}{T}\sum_{t=1}^{T}(\log \left|S_t(k)\right| - \mu(k))^2
+\end{equation}
+
+Son olarak, ortalama ve varyans istatistikleri birleştirilerek, uzun dönem spektral istatistikler öznitelik vektörleri
+elde edilir.
+
+\section{Deneysel {\ Ç}alışmalar}
+Deneyler sırasında ASVspoof 2017\cite{kinnunen2017reddots} veritabanı kullanılmıştır. ASVspoof 2017 veritabanı 16
+kHz'de örneklenmiş, 16 bit çözünürlüğünde kaydedilmiş seslerden oluşmaktadır. Bu sesler, Tablo~\ref{Dataset}'de
+gösterildiği gibi eğitim, geliştirme ve değerlendirme olmak üzere birbiri ile örtüşmeyen üç alt kümeye ayrılmıştır.
+Eğitim verisi; gerçek ve sahte sınıflara ait akustik modellerin eğitilmesi amacı ile, geliştirme kümesi, kullanılan
+sistemin parametrelerini optimize ederek en iyi saldırı tespiti sistemini oluşturmak, değerlendirme kümesi ise en iyi
+modelin performansının genelleştirilebilirliği amacıyla kullanılmıştır. Veritabanı ile ilgili daha kapsamlı bilgiye
+\cite{kinnunen2017asvspoof} çalışmasından ulaşılabilir.
+
+\begin{table}[ph]
+    \centering
+    \caption{\textsc{ASVspoof 2017 ver{\footnotesize  İ} tabanı}}
+    \label{Dataset}
+    \begin{tabular}{|c|c|cc|}
+        \hline
+        Alt Küme      & Konuşmacı Sayısı & \multicolumn{2}{c|}{Kayıt Sayısı}            \\
+                      &                  & Gerçek                            & Sentetik \\ \hline
+        Eğitim        & 10               & 1507                              & 1507     \\
+        Geliştirme    & 8                & 760                               & 950      \\
+        Değerlendirme & 24               & 1294                              & 11987    \\
+        \hline
+    \end{tabular}
+\end{table}
+
+Sınıfladırıcı olarak Bölüm II'de bahsedilen DNN yöntemi kullanılmıştır. MFCC öznitelikleri için üç ve uzun dönem
+ortalama spektrum istatistikleri (LTAS) öznitelikleri için ise beş adet gizli katmandan oluşan DNN kullanılmıştır.
+Hata fonksiyonunu optimize etmek için Stochastic Gradient Descent (SGD) algoritması kullanılmıştır. Her iki öznitelik
+türü kullanılarak farklı sayılarda nöron ve gizli katman içeren DNN sınınflandırcısı ile yapılan deneylerle ideal
+parametreler tespit edimiştir. MFCC ve LTAS öznitelik vektörlerinin boyutları ve karakteristikleri benzer olmadığından,
+öznitelikler için tespit edilen ideal DNN yapısı farklıdır. Burada MFCC için giriş katmanı nöron sayısı; kullanılan
+öznitelik sayısı (19 adet) ve ilave olarak logaritmik enerji katsayısı olmak üzere 20, her bir gizli katman ise 1024
+birimden oluşmaktadır. LTAS öznitelikleri için ise 256 adet ortalama, 256 standart sapma istatistikleri birleştirilerek
+tek bir öznitelik vektörü oluşturulduğundan giriş katmanında 512, gizli katmanlarda ise 1024 nöron bulunmaktadır. Her
+iki durum için de, gizli katmanlarda ReLU aktivasyon fonksiyonu kullanılmıştır. KD sistemler için tekrar saldırı
+tespiti ikili sınıflandırma problemi olduğundan; çıkış katmanlarının nöron sayısı iki ve aktivasyon fonksiyonu softmax
+olarak belirlenmiştir. İki adet çıkış birimi sırası ile gerçek ve sahte sınıflara karşılık gelmektedir. Bu deneyler;
+açık kaynak kodlu derin öğrenme kütüphanesi Keras\cite{keras} kullanılarak gerçekleştirilmiştir.
+
+Aşırı eğitimi (over training) engellemek amacıyla, öğrenme oranı (learning rate) düşük seçilmiş ve her bir katmandan
+sonra 0.75 değerinde dropout\cite{srivastava2014dropout} eklenmiştir. Öğrenme oranının düşük olması nedeniyle en iyi
+modele ulaşmak için epoch (devir) sayısı yüksek (10000) seçilmiştir. Diğer parametrelerin sisteme etkisini azaltmak
+\cite{li2014efficient} ve hafıza problemlerini aşmak için; eğitim verisi gruplara ayrıştırılarak eğitilmiştir (batch
+training). Eğitilen modelin, geliştirme verisi kullanılarak belirli bir frekansta validasyonu yapılmış ve validasyon
+skoru bir önceki sonuçtan iyi olduğu tespit edilen model en iyi model olarak kaydedilmiştir. Eğitim zamanından tasarruf
+amacı ile, validasyon skoru azalmadığında veya artmaya başladığında 10000 epoch sayısı beklenmeden eğitim işlemi
+sonlandırılmıştır (early stopping).
+
+ASVspoof 2017 yarışmasında tekrar saldırılarının tespiti problemi için performans metriği olarak eşit hata oranı
+(equal error rate - EER) kullanılmıştır \cite{kinnunen2017asvspoof,kinnunen2017asvspoof1}. EER değeri, yanlış kabul ve
+yanlış ret oranlarının birbirine eşit olduğu eşik değerdeki hata oranına karşılık gelmektedir. Ayrıca EER metriğine
+ilaveten, önerilen sistemin bütün performansını görüntülemek amacıyla sezim hata ödünleşimi (detection error
+trade-off - DET) \cite{martin1997det} eğrileri de verilmiştir.
+
+\section{Deneysel Sonuçlar}
+Deneyler sonucunda MFCC ve LTAS öznitelikleri ile geliştirme ve değerlendirme kümesi için elde edilen sonuçlar
+Tablo~\ref{EHO}'de verilmiştir. LTAS öznitelikleri ile geliştirme kümesinde $\%4.55$, değerlendirme kümesinde ise
+$\%18.10$ EER değerleri elde edilmiştir. MFCC öznitelikleri için ise sırasıyla $\%18.78$ ve $\%24.81$ EER değerleri
+elde edilmiştir. Sonuçlara göre LTAS özniteliklerinin bu sınıflandırıcı yapısı için, MFCC özniteliklerine göre daha
+iyi bir seçim olduğu açıkça görülmektedir. Sistem performansının daha iyi gözlemlenebilmesi amacıyla; ASVspoof 2017
+yarışmasının temel sistemi olan CQCC-GMM \cite{kinnunen2017asvspoof,kinnunen2017asvspoof1} sonuçları da tabloda
+verilmektedir. Görüldüğü gibi, geliştirme kümesinde LTAS öznitelikleri ve DNN sınıflandırıcısı referans sistemden
+yaklaşık $2.5$ kat daha iyi başarım göstermektedir. Fakat MFCC öznitelikleri DNN sınıflandırıcısı ile birlikte
+kullanıldığında geliştirme kümesinde referans sisteme nazaran daha yüksek hata oranı elde edilmiştir.
+
+\begin{table}[ph]
+    \centering
+    \caption{\textsc{ASVspoof 2017 ver{\footnotesize  İ} tabanı {\footnotesize  İ}le elde ed{\footnotesize  İ}len EER
+    de{\footnotesize  Ğ}erler{\footnotesize  İ}}}
+    \label{EHO}
+    \begin{tabular}{|c|c|cc|c|}
+        \hline
+        Öznitelik & Sistem & \multicolumn{2}{c|}{Alt Küme}                 \\
+                  &        & Geliştirme                    & Değerlendirme \\
+        \hline
+        MFCC      & DNN    & 18.78                         & 24.81         \\
+        LTAS      & DNN    & 4.55                          & 18.10         \\
+        CQCC      & GMM    & 11.85                         & 30.00         \\
+        \hline
+    \end{tabular}
+\end{table}
+
+Değerlendirme kümesi sonuçları göz önüne alındığında, önerilen sistemin (LTAS öznitelikleri ve DNN sınıflandırıcısı)
+referans sisteme (GMM sınıflandırıcısı ve CQCC öznitelikleri) göre daha yüksek performans gösterdiği görülmektedir.
+Benzer şekilde MFCC öznitelikleri ile de referans sistemden daha iyi performans elde edilmiştir.
+
+Son olarak Şekil~\ref{DetPLot} ve Şekil~\ref{DetPLotEval}'de her iki öznitelik türü (MFCC ve LTAS) ve referans sistem
+(GMM-CQCC) ile sırası ile geliştirme ve değerlendirme alt kümeleri için elde edilen DET eğrileri verilmiştir.
+
+\begin{figure}[htbp]
+    \centering
+    \shorthandoff{=}
+    \includegraphics[scale=0.24]{./Images/development-det-curve.png}
+    \shorthandon{=}
+    \caption{Geliştirme kümesi için elde edilen DET grafiği.}
+    \label{DetPLot}
+\end{figure}
+\begin{figure}[htbp]
+    \centering
+    \shorthandoff{=}
+    \includegraphics[scale=0.22]{./Images/evaluation-det-curve.png}
+    \shorthandon{=}
+    \caption{Değerlendirme kümesi için elde edilen DET grafiği.}
+    \label{DetPLotEval}
+\end{figure}
+
+\section{Tartışma}
+Bu çalışmada; daha önceden kaydedilen bir sesin tekrar oynatılması yöntemiyle, KD sistemlerine yapılması olası
+saldırıların tespit edilmesi problemi ele alınmıştır. MFCC ve uzun dönem ortalama spektrum (LTAS) istatistikleri
+yöntemleriyle elde edilen öznitelikler, DNN kullanılarak sınıflandırılmıştır. MFCC özniteliklerinin vektör boyutunun
+çeşitli yöntemlerle büyütülerek kullanılması DNN sistemler için daha iyi sonuç verebileceği düşünülmektedir. Ayrıca
+DNN yapısının ASVspoof 2017 yarışmasında belirlenen referans sisteme (CQCC - GMM) nazaran daha iyi olduğu
+gözlemlenmiştir. Farklı öznitelik yöntemleri de kullanılarak daha iyi bir DNN yapısı ile iyi sonuçlar alınabileceği
+gelecek çalışmalar için motivasyon kaynağıdır.
+
+\section*{Teşekkür}
+Bu çalışma TÜBİTAK (proje numarası 115E916) tarafından desteklenmiştir.
+
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography}
+
+\end{document}
