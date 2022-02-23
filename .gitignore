@@ -1,3 +1,27 @@
 **/.DS_Store
 
 **/.vscode
+
+**/*.aux
+**/*.bbl
+**/*.blg
+**/*.fdb_latexmk
+**/*.fls
+**/*.log
+**/*.synctex.gz
+
+**/archive.zip
+**/main.pdf
+
+# SIU 2018
+
+SIU 2018/Documents/Acceptance Letter Mail.pdf
+SIU 2018/Documents/Acceptance Letter.pdf
+SIU 2018/Documents/IEEE Copyright and Consent Form.pdf
+SIU 2018/Documents/Paper Submission Confirmation Mail.pdf
+SIU 2018/Documents/Payment Receipt.pdf
+SIU 2018/Documents/Replay Spoofing Attack Detection Using Deep Neural Networks - IEEE.pdf
+SIU 2018/Documents/Replay Spoofing Attack Detection Using Deep Neural Networks - Initial.pdf
+SIU 2018/Documents/Review Result Capture.png
+SIU 2018/Documents/Unused Parts.md
+SIU 2018/Presentation/Resources/**
