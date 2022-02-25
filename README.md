@@ -7,7 +7,7 @@ Files in the _.gitignore_ are available upon request.
 
 Publication Title: Deep Learning-Aided Automated Personal Data Discovery and Profiling
 
-Publication Date: January 2022
+Publication Date: June 2021
 
 [Click to See More On TUBITAK Journals Page](https://journals.tubitak.gov.tr/elektrik/abstract.htm?id=30487)
 
