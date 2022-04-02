@@ -1,4 +1,4 @@
-# Publications
+# Academic
 
 [See My Google Scholar Page](https://scholar.google.com/citations?user=5hyZ0wsAAAAJ&hl=en)
 
