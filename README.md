@@ -1,6 +1,5 @@
 # Publications
 
-
 [See My Google Scholar Page](https://scholar.google.com/citations?user=5hyZ0wsAAAAJ&hl=en)
 
 [See My ResearchGate Profile](https://www.researchgate.net/profile/Bekir-Bakar)
@@ -22,6 +21,11 @@ Publication Title: Deep Learning-Aided Automated Personal Data Discovery and Pro
 Publication Date: December 2022
 
 [Click to See on YOK Thesis Center](https://bit.ly/3v94Ota)
+
+## Presentations
+
+- PhD Seminar Presentation: Multi-column Deep Neural Networks for Image Classification
+- AI Lecture Homework Presentation: Object Detection and Localization for Document Profiling Systems
 
 ## SIU 2018
 
