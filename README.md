@@ -1,7 +1,11 @@
 # Publications
 
-This repository contains resources of my publications.
-Files in the _.gitignore_ are available upon request.
+
+[See My Google Scholar Page](https://scholar.google.com/citations?user=5hyZ0wsAAAAJ&hl=en)
+
+[See My ResearchGate Profile](https://www.researchgate.net/profile/Bekir-Bakar)
+
+This repository contains the resources of the below publications. Files in the `.gitignore` are available upon request.
 
 ## Journal 2022
 
