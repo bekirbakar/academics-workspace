@@ -13,16 +13,15 @@
 **/archive.zip
 **/main.pdf
 
-Essay/**
-PhD/**
-
 # Master Thesis
 Master Thesis/Documents/Turnitin Digital Receipt.pdf
 Master Thesis/Documents/Turnitin Plagiarism Check.pdf
 
 Master Thesis/Drawing/Drawing Projects/**
 
-Master Thesis/Literature/**
+Master Thesis/Literature/Paper Notes.docx
+Master Thesis/Literature/System Results.docx
+Master Thesis/Literature/System Results.pdf
 
 Master Thesis/Dissertation Proposal.docx
 Master Thesis/Dissertation Proposal.pdf
@@ -34,8 +33,6 @@ SIU 2018/Documents/Acceptance Letter.pdf
 SIU 2018/Documents/IEEE Copyright and Consent Form.pdf
 SIU 2018/Documents/Paper Submission Confirmation Mail.pdf
 SIU 2018/Documents/Payment Receipt.pdf
-SIU 2018/Documents/Replay Spoofing Attack Detection Using Deep Neural Networks - IEEE.pdf
-SIU 2018/Documents/Replay Spoofing Attack Detection Using Deep Neural Networks - Initial.pdf
 SIU 2018/Documents/Review Result Capture.png
 SIU 2018/Documents/Unused Parts.md
 
@@ -45,15 +42,12 @@ SIU 2018/Presentation/Resources/**
 SIU 2020/Documents/IEEE Copyright and Consent Form.pdf
 SIU 2020/Documents/KVKK Form.pdf
 SIU 2020/Documents/Notes.md
-SIU 2020/Documents/Turkish Rule-Based Official Document Type Detection - IEEE.pdf
 SIU 2020/Documents/Unpublished Sections.md
 SIU 2020/Documents/Zoom.pdf
 
 SIU 2020/Presentation/Turkish Rule-Based Official Document Type Detection - Presentation Video.mp4
 
 # SLT 2018
-SLT 2018/Documents/An Experimental Study on Audio Replay Attack Detection Using Deep Neural Networks - IEEE.pdf
-SLT 2018/Documents/An Experimental Study on Audio Replay Attack Detection Using Deep Neural Networks - Initial.pdf
 SLT 2018/Documents/IEEE Copyright and Consent Form.pdf
 SLT 2018/Documents/Paper Submission Confirmation Mail - Short Version.pdf
 SLT 2018/Documents/Paper Submission Confirmation Mail.pdf
