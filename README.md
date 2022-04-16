@@ -16,9 +16,9 @@ Publication Date: June 2021
 
 ## Master Thesis
 
-Publication Title: Deep Learning-Aided Automated Personal Data Discovery and Profiling
+Publication Title: Using Artificial Neural Network on Anti-spoofing for Speaker Verification
 
-Publication Date: December 2022
+Publication Date: December 2018
 
 [Click to See on YOK Thesis Center](https://bit.ly/3v94Ota)
 
