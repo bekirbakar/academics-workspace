@@ -10,7 +10,7 @@ This repository contains the resources of the below publications. Files in the `
 
 Publication Title: Deep Learning-Aided Automated Personal Data Discovery and Profiling
 
-Publication Date: June 2021
+Publication Date: January 2022
 
 [Click to See More On TUBITAK Journals Page](https://journals.tubitak.gov.tr/elektrik/abstract.htm?id=30487)
 
