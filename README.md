@@ -4,7 +4,8 @@
 
 [See My ResearchGate Profile](https://www.researchgate.net/profile/Bekir-Bakar)
 
-This repository contains the resources of the below publications. Files in the `.gitignore` are available upon request.
+This repository contains the resources of some academic works like publications, and presentations. Files in the
+`.gitignore` are available upon request.
 
 ## Journal 2022
 
@@ -24,8 +25,8 @@ Publication Date: December 2018
 
 ## Presentations
 
-- PhD Seminar Presentation: Multi-column Deep Neural Networks for Image Classification
-- AI Lecture Homework Presentation: Object Detection and Localization for Document Profiling Systems
+- PhD Seminar Presentation: Multi-column Deep Neural Networks for Image Classification (2021)
+- AI Lecture Homework Presentation: Object Detection and Localization for Document Profiling Systems (2021)
 
 ## SIU 2018
 
