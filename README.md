@@ -4,8 +4,9 @@
 
 [See My ResearchGate Profile](https://www.researchgate.net/profile/Bekir-Bakar)
 
-This repository contains the resources of some academic works like publications, and presentations. Files in the
-`.gitignore` are available upon request.
+This repository contains the resources of academic works like publications, and presentations.
+
+Files in the `.gitignore` are available upon request.
 
 ## Journal 2022
 
