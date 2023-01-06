@@ -14,43 +14,43 @@
 **/main.pdf
 
 # Master Thesis
-Master Thesis/Documents/Turnitin Digital Receipt.pdf
-Master Thesis/Documents/Turnitin Plagiarism Check.pdf
+master-thesis/documents/turnitin-digital-receipt.pdf
+master-thesis/documents/turnitin-plagiarism-check.pdf
 
-Master Thesis/Drawing/Drawing Projects/**
+master-thesis/drawing/drawing-projects/**
 
-Master Thesis/Literature/Paper Notes.docx
-Master Thesis/Literature/System Results.docx
+master-thesis/literature/paper-notes.docx
+master-thesis/literature/system-results.docx
 
-Master Thesis/Dissertation Proposal.docx
-Master Thesis/Dissertation Proposal.pdf
-Master Thesis/Using Artificial Neural Network on Anti-Spoofing for Speaker Verification.docx
+master-thesis/dissertation-proposal.docx
+master-thesis/dissertation-proposal.pdf
+master-thesis/using-artificial-neural-network-on-anti-spoofing-for-speaker-verification.docx
 
 # SIU 2018
-SIU 2018/Documents/Acceptance Letter Mail.pdf
-SIU 2018/Documents/Acceptance Letter.pdf
-SIU 2018/Documents/IEEE Copyright and Consent Form.pdf
-SIU 2018/Documents/Paper Submission Confirmation Mail.pdf
-SIU 2018/Documents/Payment Receipt.pdf
-SIU 2018/Documents/Review Result Capture.png
-SIU 2018/Documents/Unused Parts.md
+siu-2018/documents/acceptance-letter-mail.pdf
+siu-2018/documents/acceptance-letter.pdf
+siu-2018/documents/ieee-copyright-and-consent-form.pdf
+siu-2018/documents/paper-submission-confirmation-mail.pdf
+siu-2018/documents/payment-receipt.pdf
+siu-2018/documents/review-result-capture.png
+siu-2018/documents/unused-parts.md
 
-SIU 2018/Presentation/Resources/**
+siu-2018/presentation/resources/**
 
 # SIU 2020
-SIU 2020/Documents/IEEE Copyright and Consent Form.pdf
-SIU 2020/Documents/KVKK Form.pdf
-SIU 2020/Documents/Notes.md
-SIU 2020/Documents/Unpublished Sections.md
-SIU 2020/Documents/Zoom.pdf
+siu-2020/documents/ieee-copyright-and-consent-form.pdf
+siu-2020/documents/kvkk-form.pdf
+siu-2020/documents/notes.md
+siu-2020/documents/unpublished-sections.md
+siu-2020/documents/zoom.pdf
 
-SIU 2020/Presentation/Turkish Rule-Based Official Document Type Detection - Presentation Video.mp4
+siu-2020/presentation/turkish-rule-based-official-document-type-detection-presentation-video.mp4
 
 # SLT 2018
-SLT 2018/Documents/IEEE Copyright and Consent Form.pdf
-SLT 2018/Documents/Paper Submission Confirmation Mail - Short Version.pdf
-SLT 2018/Documents/Paper Submission Confirmation Mail.pdf
-SLT 2018/Documents/Review Results Mail.pdf
-SLT 2018/Documents/Unpublished Sections.md
+slt-2018/documents/ieee-copyright-and-consent-form.pdf
+slt-2018/documents/paper-submission-confirmation-mail-short-version.pdf
+slt-2018/documents/paper-submission-confirmation-mail.pdf
+slt-2018/documents/review-results-mail.pdf
+slt-2018/documents/unpublished-sections.md
 
-SLT 2018/Presentation/Resources/**
+slt-2018/presentation/resources/**
