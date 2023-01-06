@@ -37,7 +37,7 @@ Resources are in [**presentations**](presentations/) folder.
 
 Resources are in [**siu-2020**](siu-2020/) folder.
 
-- Date: October 2020
+- Date: 2020, October
 - Type: Conference Paper
 - Conference: SIU 2020
 - Affiliation: Mobildev, Tübitak
@@ -45,12 +45,16 @@ Resources are in [**siu-2020**](siu-2020/) folder.
   
 ## Using Artificial Neural Network on Anti-spoofing for Speaker Verification
 
-- Date: December 2018
+Resources are in [**master-thesis**](master-thesis/) folder.
+
+- Date: 2018, December
 - Type: Master Thesis
 - Affiliation: BTU
 - [See on YOK Thesis Center](https://bit.ly/3v94Ota)
 
 ## An Experimental Study on Audio Replay Attack Detection Using Deep Neural Networks
+
+Resources are in [**slt-2018**](slt-2018/) folder.
 
 - Date: 2018, December
 - Type: Conference Paper
@@ -59,6 +63,8 @@ Resources are in [**siu-2020**](siu-2020/) folder.
 - [See on IEEE Xplore](https://ieeexplore.ieee.org/document/8639511)
 
 ## Replay Spoofing Attack Detection Using Deep Neural Networks
+
+Resources are in [**siu-2018**](siu-2018/) folder.
 
 - Date: 2018, May
 - Type: Conference Paper
