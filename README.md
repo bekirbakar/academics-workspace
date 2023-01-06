@@ -4,51 +4,64 @@
 
 [See My ResearchGate Profile](https://www.researchgate.net/profile/Bekir-Bakar)
 
-This repository contains the resources of academic works like publications, and presentations.
+This repository contains some publication resources such as latex sources, presentations, and posters.
 
 Files in the `.gitignore` are available upon request.
 
-## Journal 2022
+## Deep Learning-Aided Automated Personal Data Discovery and Profiling
 
-Publication Title: Deep Learning-Aided Automated Personal Data Discovery and Profiling
+Resources are in [**journal-2022**](journal-2022/) folder.
 
-Publication Date: January 2022
+- Date: 2022, January
+- Type: Journal
+- Affiliation: Mobildev, Tübitak
+- [See on TUBITAK Journals Page](https://journals.tubitak.gov.tr/elektrik/vol30/iss1/12/)
 
-[Click to See More On TUBITAK Journals Page](https://journals.tubitak.gov.tr/elektrik/abstract.htm?id=30487)
+## Multi-column Deep Neural Networks for Image Classification
 
-## Master Thesis
+Resources are in [**presentations**](presentations/) folder.
 
-Publication Title: Using Artificial Neural Network on Anti-spoofing for Speaker Verification
+- Date: 2021
+- Type: PhD Seminar Presentation
+- Affiliation: BTU
 
-Publication Date: December 2018
+## Object Detection and Localization for Document Profiling Systems
 
-[Click to See on YOK Thesis Center](https://bit.ly/3v94Ota)
+Resources are in [**presentations**](presentations/) folder.
 
-## Presentations
+- Date: 2021
+- Type: AI Lecture, Homework Presentation
+- Affiliation: BTU
 
-- PhD Seminar Presentation: Multi-column Deep Neural Networks for Image Classification (2021)
-- AI Lecture Homework Presentation: Object Detection and Localization for Document Profiling Systems (2021)
+## Turkish Rule-Based Official Document Type Detection
 
-## SIU 2018
+Resources are in [**siu-2020**](siu-2020/) folder.
 
-Publication Title: Replay Spoofing Attack Detection Using Deep Neural Networks
+- Date: October 2020
+- Type: Conference Paper
+- Conference: SIU 2020
+- Affiliation: Mobildev, Tübitak
+- [See on IEEE Xplore](https://ieeexplore.ieee.org/document/9302159)
+  
+## Using Artificial Neural Network on Anti-spoofing for Speaker Verification
 
-Publication Date: May 2018
+- Date: December 2018
+- Type: Master Thesis
+- Affiliation: BTU
+- [See on YOK Thesis Center](https://bit.ly/3v94Ota)
 
-[Click to See on IEEE](https://ieeexplore.ieee.org/abstract/document/8404584)
+## An Experimental Study on Audio Replay Attack Detection Using Deep Neural Networks
 
-## SIU 2020
+- Date: 2018, December
+- Type: Conference Paper
+- Conference: SLT 2018
+- Affiliation: BTU, Tübitak
+- [See on IEEE Xplore](https://ieeexplore.ieee.org/document/8639511)
 
-Publication Title: Turkish Rule-Based Official Document Type Detection
+## Replay Spoofing Attack Detection Using Deep Neural Networks
 
-Publication Date: October 2020
-
-[Click to See on IEEE](https://ieeexplore.ieee.org/document/9302159)
-
-## SLT 2018
-
-Publication Title: An Experimental Study on Audio Replay Attack Detection Using Deep Neural Networks
-
-Publication Date: December 2018
-
-[Click to See on IEEE](https://ieeexplore.ieee.org/document/8639511)
+- Date: 2018, May
+- Type: Conference Paper
+- Conference: SIU 2018
+- Affiliation: BTU, Tübitak
+- [See on IEEE Xplore](https://ieeexplore.ieee.org/abstract/document/8404584)
