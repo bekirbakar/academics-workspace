@@ -2,29 +2,21 @@
 
 **/.vscode
 
-**/*.aux
-**/*.bbl
-**/*.blg
-**/*.fdb_latexmk
-**/*.fls
-**/*.log
-**/*.synctex.gz
-
 **/archive.zip
 **/main.pdf
 
-# Master Thesis
-master-thesis/documents/turnitin-digital-receipt.pdf
-master-thesis/documents/turnitin-plagiarism-check.pdf
+# Master's Thesis
+masters-thesis/documents/turnitin-digital-receipt.pdf
+masters-thesis/documents/turnitin-plagiarism-check.pdf
 
-master-thesis/drawing/drawing-projects/**
+masters-thesis/drawing/drawing-projects/**
 
-master-thesis/literature/paper-notes.docx
-master-thesis/literature/system-results.docx
+masters-thesis/literature/paper-notes.docx
+masters-thesis/literature/system-results.docx
 
-master-thesis/dissertation-proposal.docx
-master-thesis/dissertation-proposal.pdf
-master-thesis/using-artificial-neural-network-on-anti-spoofing-for-speaker-verification.docx
+masters-thesis/dissertation-proposal.docx
+masters-thesis/dissertation-proposal.pdf
+masters-thesis/using-artificial-neural-network-on-anti-spoofing-for-speaker-verification.docx
 
 # SIU 2018
 siu-2018/documents/acceptance-letter-mail.pdf

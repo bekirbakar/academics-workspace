@@ -1,39 +1,17 @@
-# Academic
+# Publication Resources
 
-[See My Google Scholar Page](https://scholar.google.com/citations?user=5hyZ0wsAAAAJ&hl=en)
+This repository houses various publication resources, including LaTeX source files, presentation slides, and posters related to my academic work.
 
-[See My ResearchGate Profile](https://www.researchgate.net/profile/Bekir-Bakar)
+If you require access to any files mentioned in the `.gitignore`, please feel free to reach out with a request.
 
-This repository contains some publication resources such as latex sources, presentations, and posters.
+Also see;
 
-Files in the `.gitignore` are available upon request.
+- [ResearchGate Profile](https://www.researchgate.net/profile/Bekir-Bakar)
+- [My Google Scholar Page](https://scholar.google.com/citations?user=5hyZ0wsAAAAJ&hl=en)
 
-## Deep Learning-Aided Automated Personal Data Discovery and Profiling
+## Conference Proceedings
 
-Resources are in [**journal-2022**](journal-2022/) folder.
-
-- Date: 2022, January
-- Type: Journal
-- Affiliation: Mobildev, Tübitak
-- [See on TUBITAK Journals Page](https://journals.tubitak.gov.tr/elektrik/vol30/iss1/12/)
-
-## Multi-column Deep Neural Networks for Image Classification
-
-Resources are in [**presentations**](presentations/) folder.
-
-- Date: 2021
-- Type: PhD Seminar Presentation
-- Affiliation: BTU
-
-## Object Detection and Localization for Document Profiling Systems
-
-Resources are in [**presentations**](presentations/) folder.
-
-- Date: 2021
-- Type: AI Lecture, Homework Presentation
-- Affiliation: BTU
-
-## Turkish Rule-Based Official Document Type Detection
+### Turkish Rule-Based Official Document Type Detection
 
 Resources are in [**siu-2020**](siu-2020/) folder.
 
@@ -42,17 +20,18 @@ Resources are in [**siu-2020**](siu-2020/) folder.
 - Conference: SIU 2020
 - Affiliation: Mobildev, Tübitak
 - [See on IEEE Xplore](https://ieeexplore.ieee.org/document/9302159)
-  
-## Using Artificial Neural Network on Anti-spoofing for Speaker Verification
 
-Resources are in [**master-thesis**](master-thesis/) folder.
+### Replay Spoofing Attack Detection Using Deep Neural Networks
 
-- Date: 2018, December
-- Type: Master Thesis
-- Affiliation: BTU
-- [See on YOK Thesis Center](https://bit.ly/3v94Ota)
+Resources are in [**siu-2018**](siu-2018/) folder.
 
-## An Experimental Study on Audio Replay Attack Detection Using Deep Neural Networks
+- Date: 2018, May
+- Type: Conference Paper
+- Conference: SIU 2018
+- Affiliation: BTU, Tübitak
+- [See on IEEE Xplore](https://ieeexplore.ieee.org/abstract/document/8404584)
+
+### An Experimental Study on Audio Replay Attack Detection Using Deep Neural Networks
 
 Resources are in [**slt-2018**](slt-2018/) folder.
 
@@ -62,12 +41,42 @@ Resources are in [**slt-2018**](slt-2018/) folder.
 - Affiliation: BTU, Tübitak
 - [See on IEEE Xplore](https://ieeexplore.ieee.org/document/8639511)
 
-## Replay Spoofing Attack Detection Using Deep Neural Networks
+## Papers
 
-Resources are in [**siu-2018**](siu-2018/) folder.
+### Deep Learning-Aided Automated Personal Data Discovery and Profiling
 
-- Date: 2018, May
-- Type: Conference Paper
-- Conference: SIU 2018
-- Affiliation: BTU, Tübitak
-- [See on IEEE Xplore](https://ieeexplore.ieee.org/abstract/document/8404584)
+Resources are in [**journal-2022**](journal-2022/) folder.
+
+- Date: 2022, January
+- Type: Journal
+- Affiliation: Mobildev, Tübitak
+- [See on TÜBİTAK Journals Page](https://journals.tubitak.gov.tr/elektrik/vol30/iss1/12/)
+
+## Presentations
+
+### Multi-column Deep Neural Networks for Image Classification
+
+Resources are in [**presentations**](presentations/) folder.
+
+- Date: 2021
+- Type: PhD Seminar Presentation
+- Affiliation: BTU
+
+### Object Detection and Localization for Document Profiling Systems
+
+Resources are in [**presentations**](presentations/) folder.
+
+- Date: 2021
+- Type: AI Lecture: Homework Presentation
+- Affiliation: BTU
+
+## Thesis
+
+### Using Artificial Neural Network on Anti-spoofing for Speaker Verification
+
+Resources are in [**master-thesis**](master-thesis/) folder.
+
+- Date: 2018, December
+- Type: Master Thesis
+- Affiliation: BTU
+- [See on YOK Thesis Center](https://bit.ly/3v94Ota)
