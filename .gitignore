@@ -2,47 +2,28 @@
 
 **/.vscode
 
-**/archive.zip
+**/ieee-copyright-and-consent-form.pdf
+**/unpublished-parts.md
+**/*-mail*
 **/main.pdf
 
-# Master's Thesis
 masters-thesis/documents/turnitin-digital-receipt.pdf
 masters-thesis/documents/turnitin-plagiarism-check.pdf
-
 masters-thesis/drawing/drawing-projects/**
-
 masters-thesis/literature/paper-notes.docx
 masters-thesis/literature/system-results.docx
-
 masters-thesis/dissertation-proposal.docx
 masters-thesis/dissertation-proposal.pdf
 masters-thesis/using-artificial-neural-network-on-anti-spoofing-for-speaker-verification.docx
 
-# SIU 2018
-siu-2018/documents/acceptance-letter-mail.pdf
 siu-2018/documents/acceptance-letter.pdf
-siu-2018/documents/ieee-copyright-and-consent-form.pdf
-siu-2018/documents/paper-submission-confirmation-mail.pdf
 siu-2018/documents/payment-receipt.pdf
 siu-2018/documents/review-result-capture.png
-siu-2018/documents/unused-parts.md
-
 siu-2018/presentation/resources/**
 
-# SIU 2020
-siu-2020/documents/ieee-copyright-and-consent-form.pdf
 siu-2020/documents/kvkk-form.pdf
 siu-2020/documents/notes.md
-siu-2020/documents/unpublished-sections.md
 siu-2020/documents/zoom.pdf
-
 siu-2020/presentation/turkish-rule-based-official-document-type-detection-presentation-video.mp4
-
-# SLT 2018
-slt-2018/documents/ieee-copyright-and-consent-form.pdf
-slt-2018/documents/paper-submission-confirmation-mail-short-version.pdf
-slt-2018/documents/paper-submission-confirmation-mail.pdf
-slt-2018/documents/review-results-mail.pdf
-slt-2018/documents/unpublished-sections.md
 
 slt-2018/presentation/resources/**

@@ -82,16 +82,16 @@ tanıma vb. biyometrik sistemlerde olduğu gibi; KD sistemleri kişisel verileri
 kontrolü, banka işlemleri ve daha bir çok alanda kullanılmaktadır \cite{hadid2015biometrics}. Teknolojik gelişmeler ve
 bu alanda yapılan çalışmaların artmasıyla birlikte, sistemlerin kullanım alanı gün geçtikçe artmaktadır.
 
-KD ve diğer biyometrik sistemlerin kullanımının yagınlaşması, sistemlere yapılan yanıltma saldırılarını da beraberinde
+KD ve diğer biyometrik sistemlerin kullanımının yaygınlaşması, sistemlere yapılan yanıltma saldırılarını da beraberinde
 getirmiştir. Yanıltma saldırısı, bir kişinin (saldırganın) erişim izni olmayan bir sisteme erişme girişimidir
 \cite{hadid2015biometrics}. En son geliştirilen KD sistemleri de dahil olmak üzere, sistemlerin yanıltma saldırılarına
-karşı savunmasız olduğu birçok çalışmada açıkca gösterilmiştir \cite{wu2015spoofing}.
+karşı savunmasız olduğu birçok çalışmada açıkça gösterilmiştir \cite{wu2015spoofing}.
 
 Bir KD sistemine yapılması olası saldırı türleri; konuşmacının sesinin sentezlenerek oluşturulması
-\emph{-ses sentezleme-}\cite{de2012evaluation}, çeşitli yazılımlar kulanılarak saldırganın herhangi bir sesi hedef
+\emph{-ses sentezleme-}\cite{de2012evaluation}, çeşitli yazılımlar kullanılarak saldırganın herhangi bir sesi hedef
 kişinin sesine dönüştürmesi \emph{-ses dönüştürme}-\cite{stylianou2009voice}, hedef konuşmacının sesinin taklit
 edilmesi \emph{-taklit-}\cite{hautamaki2015automatic}, hedef konuşmacının önceden kaydedilmiş ses kaydının kullanılması
-\emph{-tekrar oynatma-} \cite{wu2015spoofing} şeklinde alt ketegorilere ayrılabilir. Bu
+\emph{-tekrar oynatma-} \cite{wu2015spoofing} şeklinde alt kategorilere ayrılabilir. Bu
 saldırı türlerinden taklit saldırısı özel bir yetenek gerektirmesi nedeniyle, karşılaşılması güç bir saldırı türüdür
 ve önemli bir tehdit olarak algılanmamaktadır. Ses sentezleme ve ses dönüştürme saldırıları kolay erişilebilir birçok
 yazılım kullanılarak yapılabileceği ve saldırı başarı oranının yüksek olması nedeniyle önemli bir tehdit olarak
@@ -194,7 +194,7 @@ problemlerinde en yaygın kullanılan öznitelik çıkarma yöntemlerinden birid
 ses sinyalinin her biri 25 ms uzunluğunda, 10 ms'lik kısımları birbiri ile örtüşen Hamming pencere ile pencerelenmiş
 çerçevelerden elde edilir. Pencerelenmiş çerçevelerin ayrık Fourier dönüşümü (DFT) alınarak genlik spektrumları elde
 edilir ve üçgen süzgeçlerden oluşan süzgeç takımından geçirilir. Logaritmik süzgeç çıkışlarının ayrık kosinüs
-dönüşümünün alınmasıyla MFCC öznitelikeri elde edilir. Burada öznitelik vektörünün ilk katsayısı logaritmik enerjidir.
+dönüşümünün alınmasıyla MFCC öznitelikleri elde edilir. Burada öznitelik vektörünün ilk katsayısı logaritmik enerjidir.
 Bu yöntem için açık kaynak kodlu dil ve konuşmacı tanıma paketi SIDEKIT \cite{sidekit} kullanılmıştır.
 
 \subsection{Uzun Dönem Ortalama Spektrum İstatistikleri}
@@ -239,11 +239,11 @@ modelin performansının genelleştirilebilirliği amacıyla kullanılmıştır.
     \end{tabular}
 \end{table}
 
-Sınıfladırıcı olarak Bölüm II'de bahsedilen DNN yöntemi kullanılmıştır. MFCC öznitelikleri için üç ve uzun dönem
+Sınıflandırıcı olarak Bölüm II'de bahsedilen DNN yöntemi kullanılmıştır. MFCC öznitelikleri için üç ve uzun dönem
 ortalama spektrum istatistikleri (LTAS) öznitelikleri için ise beş adet gizli katmandan oluşan DNN kullanılmıştır.
 Hata fonksiyonunu optimize etmek için Stochastic Gradient Descent (SGD) algoritması kullanılmıştır. Her iki öznitelik
-türü kullanılarak farklı sayılarda nöron ve gizli katman içeren DNN sınınflandırcısı ile yapılan deneylerle ideal
-parametreler tespit edimiştir. MFCC ve LTAS öznitelik vektörlerinin boyutları ve karakteristikleri benzer olmadığından,
+türü kullanılarak farklı sayılarda nöron ve gizli katman içeren DNN sınıflandırıcısı ile yapılan deneylerle ideal
+parametreler tespit edilmiştir. MFCC ve LTAS öznitelik vektörlerinin boyutları ve karakteristikleri benzer olmadığından,
 öznitelikler için tespit edilen ideal DNN yapısı farklıdır. Burada MFCC için giriş katmanı nöron sayısı; kullanılan
 öznitelik sayısı (19 adet) ve ilave olarak logaritmik enerji katsayısı olmak üzere 20, her bir gizli katman ise 1024
 birimden oluşmaktadır. LTAS öznitelikleri için ise 256 adet ortalama, 256 standart sapma istatistikleri birleştirilerek

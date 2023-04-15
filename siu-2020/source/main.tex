@@ -87,11 +87,11 @@
 \begin{abstract}
     This study is the first stage of industrial application that will be used in the product named DATAMIN, which is
     being developed to help companies adapt Personal Data Protection Law (DPL) No. 6698 came into force in 2016 in
-    Turkey, by extracting and relationing personal information in official documents. Rule-based official document type
+    Turkey, by extracting and relating personal information in official documents. Rule-based official document type
     detection method based on matching control with flexible regular expressions and minimum edit distance was
     developed by determining the distinctive effect values of the field names in the documents. It was found that
     proposed method was highly effective and able to make accurate modeling when optical character recognition with
-    high-quality was avaliable.
+    high-quality was available.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -166,7 +166,7 @@ tesseract\footnote{https://github.com/tesseract-ocr/tesseract} OKT kütüphanesi
 \subsection{Düzenli İfadeler ve En Az Düzeltme Mesafesi}
 Düzenli ifadeler esas olarak karakter dizisi tespiti için cebirsel gösterimlerden oluşmaktadır. Büyük veri ambarında
 örüntüsü belirli olan kelime yapıları tespiti ve geri dönüşümü için kullanılmaktadır \cite{jurafsky2000speech}. En az
-düzeltme mesafesi ise iki farklı kelimenin biribirlerine dönüştürülebilmesi için ihtiyaç duyulan en az düzeltme işlemi
+düzeltme mesafesi ise iki farklı kelimenin birbirlerine dönüştürülebilmesi için ihtiyaç duyulan en az düzeltme işlemi
 (ekleme, silme ve değiştirme gibi) sayısı olarak tanımlanır \cite{levenshtein1966binary}.
 
 \subsection{Etki Değeri Tanımlaması}
@@ -218,7 +218,7 @@ frekans değeri "TC Kimlik No" alan ismi için $2$, "Diploma No" ve "Geçerlilik
 olmaktadır.
 
 Algoritma \ref{alg:tersfrekans}'de belirlenen her alana ait $\mathbf{F}$ ters frekans değerleri kullanılarak Algoritma
-\ref{alg:etkidegeri}'de herbir doküman tipinde bulunan alan isimlerinin etki değerleri ($\mathbf{E}$) hesaplanmıştır;
+\ref{alg:etkidegeri}'de her bir doküman tipinde bulunan alan isimlerinin etki değerleri ($\mathbf{E}$) hesaplanmıştır;
 
 \begin{equation}
     e_i = \frac{uzunluk(\mathbf{D})}{\mathbf{F}(d_{ij}) \times uzunluk(\mathbf{d_i})}
@@ -264,7 +264,7 @@ gösterilmiştir.
         {\scriptsize TC Kimlik No}                                                                    & 2 &
         $\frac{2}{2 \times 8} = 0.125$                                                                      \\ &
                                                                                                       &
-        {\scriptsize Geçerlillik Tarihi}                                                              &
+        {\scriptsize Geçerlilik Tarihi}                                                              &
         1                                                                                             &
         $\frac{2}{1 \times 8} = 0.250$
         \\
@@ -286,7 +286,7 @@ meydana gelebilecek Türkçe karakter bozuklukları göz önünde bulundurularak
 \ref{fig:alanisimleri}-b'de kimlik kartında "Önceki Soyadı" alan ismi bu işlem sonrasına "[OÖ]nceki ?Soyad[ıi]" düzenli
 ifade örüntüsü olmaktadır. Örüntülerin tüm karakterlerinde büyük ve küçük harf olabilmesi sağlanarak eşleşmelerin
 kapsamı artırılmıştır. Ayrıca, oluşturulan her bir düzenli ifade örüntü öncesi ve sonrasında kelime sınırı (boşluk veya
-bir sonraki satıra geçiş) kısıtı eklenerek istenmeyen eşleşmeler önlenmiştir. En az düzeltme mesefesinde maliyetler her
+bir sonraki satıra geçiş) kısıtı eklenerek istenmeyen eşleşmeler önlenmiştir. En az düzeltme mesafesinde maliyetler her
 bir işlem (silme, ekleme ve değiştirme) için $1$ olarak belirlenmiştir.
 
 En az düzeltme mesafesi karakter sayısı az olan alan isimleri için yüksek seviyede belirlenir ise istenmeyen birçok
@@ -364,12 +364,12 @@ faktördür.
 
 \section{Sonuçlar}
 \label{sec:result}
-Bu çalışmada, Türkiye Cumhuriyeti'nde kullanılan resmi dokümanların kural tabanlı sınıflandırılması amaçlanmıştır.
+Bu çalışmada, Türkiye Cumhuriyetinde kullanılan resmi dokümanların kural tabanlı sınıflandırılması amaçlanmıştır.
 Literatürde benzer bir yaklaşımın yapılabilmesi için herhangi bir veri setinin mevcut olmadığı görülmüştür. Söz konusu
 dokümanların kişiye özel olmasından dolayı geliştirme ve test esnasında temin edilmesi hukuksal anlamda bir takım
 prosedürlerin yerine getirilmesini gerektirmiştir. Bu sebeple kısıtlı olsa da gerçek veriler ile önerilen metotların
 testi sağlanmıştır. Hazırlanan veri setinde doğrudan dijital ortamda oluşturulan 108 adet doküman ve kamera veya
-tarayıcı aracılığı ile dijital ortama aktarılan 417 adet doküman bulunmaktadır. Bu 2 katagorideki veriler ayrı ayrı
+tarayıcı aracılığı ile dijital ortama aktarılan 417 adet doküman bulunmaktadır. Bu 2 kategorideki veriler ayrı ayrı
 test edilerek doğrulama matrisleri Şekil \ref{fig:dogrulamamatrisi}'de sunulmuştur.
 
 \begin{figure}[th]
@@ -385,7 +385,7 @@ test edilerek doğrulama matrisleri Şekil \ref{fig:dogrulamamatrisi}'de sunulmu
     \label{fig:dogrulamamatrisi}
 \end{figure}
 
-D-5, D-6, D-7, D-9, D-10 ve D-11 tiplerine ait dokümanlara doğrudan dijital ortamda oluşturturulmuş formda
+D-5, D-6, D-7, D-9, D-10 ve D-11 tiplerine ait dokümanlara doğrudan dijital ortamda oluşturulmuş formda
 karşılaşılabildiği için Şekil \ref{fig:dogrulamamatrisi}-a'da 6 adet doküman tipi sınırlandırması yapılmıştır. Test
 sonrasında doküman tiplerinin tamamının doğru tespit edildiği görülmektedir (genel başarım \%100). Şunu özellikle
 belirtmek isteriz ki, bu sonuç veri çıkarımının sorunsuz olarak gerçekleştirilebildiği (OKT bağımlılığı olmadan)
@@ -393,7 +393,7 @@ doküman tiplerinde önerilen metodun doğru karar verebildiğini ve doğru mode
 göstermektedir.
 
 Doküman tipinin hatalı atanması yerine mevcut doküman tiplerinin haricinde "diğer" doküman tipi şeklinde atama
-yapabilabilmesi beklenmektedir. Örneğin, verilen bir TC kimlik kartı için eğer adli sicil kaydı ataması yapılırsa
+yapabilmesi beklenmektedir. Örneğin, verilen bir TC kimlik kartı için eğer adli sicil kaydı ataması yapılırsa
 bütüncül sistemin doğru çalışması mümkün olamayacaktır. Bu kısıt ve gereklilikler ışığında Şekil
 \ref{fig:dogrulamamatrisi}-b incelendiğinde öncelikle test kümesinde bulunan $58$ adet harici tipteki dokümanın hatalı
 olarak herhangi bir sınıfa atanmadığı görülmektedir. Ayrıca tipi hatalı olarak tespit edilen dokümanların neredeyse

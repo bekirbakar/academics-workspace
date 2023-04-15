@@ -1,13 +1,6 @@
 # Publication Resources
 
-This repository houses various publication resources, including LaTeX source files, presentation slides, and posters related to my academic work.
-
-If you require access to any files mentioned in the `.gitignore`, please feel free to reach out with a request.
-
-Also see;
-
-- [ResearchGate Profile](https://www.researchgate.net/profile/Bekir-Bakar)
-- [My Google Scholar Page](https://scholar.google.com/citations?user=5hyZ0wsAAAAJ&hl=en)
+This repository houses various publication resources such as presentation slides, posters etc.
 
 ## Conference Proceedings
 
@@ -80,3 +73,8 @@ Resources are in [**master-thesis**](master-thesis/) folder.
 - Type: Master Thesis
 - Affiliation: BTU
 - [See on YOK Thesis Center](https://bit.ly/3v94Ota)
+
+## Links
+
+- [My ResearchGate Profile](https://www.researchgate.net/profile/Bekir-Bakar)
+- [My Google Scholar Page](https://scholar.google.com/citations?user=5hyZ0wsAAAAJ&hl=en)
