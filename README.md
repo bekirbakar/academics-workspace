@@ -67,7 +67,7 @@ Resources are in [**presentations**](presentations/) folder.
 
 ### Using Artificial Neural Network on Anti-spoofing for Speaker Verification
 
-Resources are in [**master-thesis**](master-thesis/) folder.
+Resources are in [**masters-thesis**](masters-thesis/) folder.
 
 - Date: 2018, December
 - Type: Master Thesis
